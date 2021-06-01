@@ -14,4 +14,5 @@ skills. I've heard many goods about 11ty, and there it is. 11ty is my static pag
 ready template [eleventy-high-performance-blog](https://www.industrialempathy.com/posts/eleventy-high-performance-blog/). I've done few
 changes, adjust codebase to my like, but overall a lot of stuff here, just have a sense. I'll use it as a base.
 
-Now it is time to setup CI/CD and everything is ready to go. 
+Now it is time to set up CI/CD and everything is ready to go. I've decide to do deploy on push and only buid and test on
+PR. This was easier than I was think, dough yaml format was not gain my heart.
