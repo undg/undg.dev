@@ -19,9 +19,9 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-const metadata = require("./metadata.json");
+const metadata = require("./metadata.json")
 
-module.exports = function () {
-  // Check opt-in to send CWV metrics to GA.
-  return metadata.sendWebVitals;
-};
+module.exports = function() {
+    // Check opt-in to send CWV metrics to GA.
+    return metadata.sendWebVitals
+}

@@ -19,7 +19,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-module.exports = function () {
-  // YOLO.
-  return /serve/.test(process.argv.join());
-};
+module.exports = function() {
+    // YOLO.
+    return /serve/.test(process.argv.join())
+}

@@ -28,10 +28,7 @@ if (location.search) {
 }
 
 function tweet_(url) {
-    open(
-        "https://twitter.com/intent/tweet?url=" + encodeURIComponent(url),
-        "_blank"
-    )
+    open("https://twitter.com/intent/tweet?url=" + encodeURIComponent(url), "_blank")
 }
 function tweet(anchor) {
     tweet_(anchor.getAttribute("href"))
@@ -58,7 +55,7 @@ function message(msg) {
     var dialog = document.getElementById("message")
     dialog.textContent = msg
     dialog.setAttribute("open", "")
-    setTimeout(function () {
+    setTimeout(function() {
         dialog.removeAttribute("open")
     }, 3000)
 }
@@ -76,10 +73,7 @@ function prefetch(e) {
      * @return {string} url without fragment
      */
     const removeUrlFragment = (url) => url.split("#")[0]
-    if (
-        removeUrlFragment(window.location.href) ===
-        removeUrlFragment(e.target.href)
-    ) {
+    if (removeUrlFragment(window.location.href) === removeUrlFragment(e.target.href)) {
         return
     }
     var l = document.createElement("link")
@@ -99,7 +93,7 @@ document.documentElement.addEventListener("touchstart", prefetch, {
 const GA_ID = document.documentElement.getAttribute("ga-id")
 window.ga =
     window.ga ||
-    function () {
+    function() {
         if (!GA_ID) {
             return
         }
@@ -109,7 +103,7 @@ ga.l = +new Date()
 ga("create", GA_ID, "auto")
 ga("set", "transport", "beacon")
 var timeout = setTimeout(
-    (onload = function () {
+    (onload = function() {
         clearTimeout(timeout)
         ga("send", "pageview")
     }),
@@ -167,7 +161,7 @@ if (/web-vitals.js/.test(sendWebVitals)) {
 
 addEventListener(
     "click",
-    function (e) {
+    function(e) {
         var button = e.target.closest("button")
         if (!button) {
             return
@@ -175,8 +169,7 @@ addEventListener(
         ga("send", {
             hitType: "event",
             eventCategory: "button",
-            eventAction:
-                button.getAttribute("aria-label") || button.textContent,
+            eventAction: button.getAttribute("aria-label") || button.textContent,
         })
     },
     true
@@ -184,13 +177,13 @@ addEventListener(
 var selectionTimeout
 addEventListener(
     "selectionchange",
-    function () {
+    function() {
         clearTimeout(selectionTimeout)
         var text = String(document.getSelection()).trim()
         if (text.split(/[\s\n\r]+/).length < 3) {
             return
         }
-        selectionTimeout = setTimeout(function () {
+        selectionTimeout = setTimeout(function() {
             ga("send", {
                 hitType: "event",
                 eventCategory: "selection",
@@ -219,10 +212,7 @@ if (window.ResizeObserver && document.querySelector("header nav #nav")) {
     var bottom = 10000
     function updateProgress() {
         requestedAniFrame = false
-        var percent = Math.min(
-            (document.scrollingElement.scrollTop / (bottom - winHeight)) * 100,
-            100
-        )
+        var percent = Math.min((document.scrollingElement.scrollTop / (bottom - winHeight)) * 100, 100)
         progress.style.transform = `translate(-${100 - percent}vw, 0)`
         if (Date.now() - timeOfLastScroll < 3000) {
             requestAnimationFrame(updateProgress)
@@ -232,9 +222,7 @@ if (window.ResizeObserver && document.querySelector("header nav #nav")) {
 
     new ResizeObserver(() => {
         bottom =
-            document.scrollingElement.scrollTop +
-            document.querySelector("#comments,footer").getBoundingClientRect()
-                .top
+            document.scrollingElement.scrollTop + document.querySelector("#comments,footer").getBoundingClientRect().top
         winHeight = window.innerHeight
         scroll()
     }).observe(document.body)

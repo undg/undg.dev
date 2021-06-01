@@ -19,13 +19,13 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-const { JSDOM } = require("jsdom");
-const { promisify } = require("util");
-const sizeOf = promisify(require("image-size"));
-const blurryPlaceholder = require("./blurry-placeholder");
-const srcset = require("./srcset");
-const path = require("path");
-const { gif2mp4 } = require("./video-gif");
+const { JSDOM } = require("jsdom")
+const { promisify } = require("util")
+const sizeOf = promisify(require("image-size"))
+const blurryPlaceholder = require("./blurry-placeholder")
+const srcset = require("./srcset")
+const path = require("path")
+const { gif2mp4 } = require("./video-gif")
 
 /**
  * Sets `width` and `height` on each image, adds blurry placeholder
@@ -35,114 +35,104 @@ const { gif2mp4 } = require("./video-gif");
  */
 
 const processImage = async (img, outputPath) => {
-  let src = img.getAttribute("src");
-  if (/^(https?\:\/\/|\/\/)/i.test(src)) {
-    return;
-  }
-  if (/^\.+\//.test(src)) {
-    // resolve relative URL
-    src =
-      "/" +
-      path.relative("./_site/", path.resolve(path.dirname(outputPath), src));
-    if (path.sep == "\\") {
-      src = src.replace(/\\/g, "/");
+    let src = img.getAttribute("src")
+    if (/^(https?\:\/\/|\/\/)/i.test(src)) {
+        return
     }
-  }
-  let dimensions;
-  try {
-    dimensions = await sizeOf("_site/" + src);
-  } catch (e) {
-    console.warn(e.message, src);
-    return;
-  }
-  if (!img.getAttribute("width")) {
-    img.setAttribute("width", dimensions.width);
-    img.setAttribute("height", dimensions.height);
-  }
-  if (dimensions.type == "svg") {
-    return;
-  }
-  if (dimensions.type == "gif") {
-    const videoSrc = await gif2mp4(src);
-    const video = img.ownerDocument.createElement(
-      /AMP/i.test(img.tagName) ? "amp-video" : "video"
-    );
-    [...img.attributes].map(({ name, value }) => {
-      video.setAttribute(name, value);
-    });
-    video.src = videoSrc;
-    video.setAttribute("autoplay", "");
-    video.setAttribute("muted", "");
-    video.setAttribute("loop", "");
-    if (!video.getAttribute("aria-label")) {
-      video.setAttribute("aria-label", img.getAttribute("alt"));
-      video.removeAttribute("alt");
+    if (/^\.+\//.test(src)) {
+        // resolve relative URL
+        src = "/" + path.relative("./_site/", path.resolve(path.dirname(outputPath), src))
+        if (path.sep == "\\") {
+            src = src.replace(/\\/g, "/")
+        }
     }
-    img.parentElement.replaceChild(video, img);
-    return;
-  }
-  if (img.tagName == "IMG") {
-    img.setAttribute("decoding", "async");
-    img.setAttribute("loading", "lazy");
-    img.setAttribute(
-      "style",
-      `background-size:cover;` +
-        `background-image:url("${await blurryPlaceholder(src)}")`
-    );
-    const doc = img.ownerDocument;
-    const picture = doc.createElement("picture");
-    const avif = doc.createElement("source");
-    const webp = doc.createElement("source");
-    const jpeg = doc.createElement("source");
-    await setSrcset(avif, src, "avif");
-    avif.setAttribute("type", "image/avif");
-    await setSrcset(webp, src, "webp");
-    webp.setAttribute("type", "image/webp");
-    const fallback = await setSrcset(jpeg, src, "jpeg");
-    jpeg.setAttribute("type", "image/jpeg");
-    picture.appendChild(avif);
-    picture.appendChild(webp);
-    picture.appendChild(jpeg);
-    img.parentElement.replaceChild(picture, img);
-    picture.appendChild(img);
-    img.setAttribute("src", fallback);
-  } else if (!img.getAttribute("srcset")) {
-    const fallback = await setSrcset(img, src, "jpeg");
-    img.setAttribute("src", fallback);
-  }
-};
+    let dimensions
+    try {
+        dimensions = await sizeOf("_site/" + src)
+    } catch (e) {
+        console.warn(e.message, src)
+        return
+    }
+    if (!img.getAttribute("width")) {
+        img.setAttribute("width", dimensions.width)
+        img.setAttribute("height", dimensions.height)
+    }
+    if (dimensions.type == "svg") {
+        return
+    }
+    if (dimensions.type == "gif") {
+        const videoSrc = await gif2mp4(src)
+        const video = img.ownerDocument.createElement(/AMP/i.test(img.tagName) ? "amp-video" : "video")
+        ;[...img.attributes].map(({ name, value }) => {
+            video.setAttribute(name, value)
+        })
+        video.src = videoSrc
+        video.setAttribute("autoplay", "")
+        video.setAttribute("muted", "")
+        video.setAttribute("loop", "")
+        if (!video.getAttribute("aria-label")) {
+            video.setAttribute("aria-label", img.getAttribute("alt"))
+            video.removeAttribute("alt")
+        }
+        img.parentElement.replaceChild(video, img)
+        return
+    }
+    if (img.tagName == "IMG") {
+        img.setAttribute("decoding", "async")
+        img.setAttribute("loading", "lazy")
+        img.setAttribute("style", `background-size:cover;` + `background-image:url("${await blurryPlaceholder(src)}")`)
+        const doc = img.ownerDocument
+        const picture = doc.createElement("picture")
+        const avif = doc.createElement("source")
+        const webp = doc.createElement("source")
+        const jpeg = doc.createElement("source")
+        await setSrcset(avif, src, "avif")
+        avif.setAttribute("type", "image/avif")
+        await setSrcset(webp, src, "webp")
+        webp.setAttribute("type", "image/webp")
+        const fallback = await setSrcset(jpeg, src, "jpeg")
+        jpeg.setAttribute("type", "image/jpeg")
+        picture.appendChild(avif)
+        picture.appendChild(webp)
+        picture.appendChild(jpeg)
+        img.parentElement.replaceChild(picture, img)
+        picture.appendChild(img)
+        img.setAttribute("src", fallback)
+    } else if (!img.getAttribute("srcset")) {
+        const fallback = await setSrcset(img, src, "jpeg")
+        img.setAttribute("src", fallback)
+    }
+}
 
 async function setSrcset(img, src, format) {
-  const setInfo = await srcset(src, format);
-  img.setAttribute("srcset", setInfo.srcset);
-  img.setAttribute(
-    "sizes",
-    img.getAttribute("align")
-      ? "(max-width: 608px) 50vw, 187px"
-      : "(max-width: 608px) 100vw, 608px"
-  );
-  return setInfo.fallback;
+    const setInfo = await srcset(src, format)
+    img.setAttribute("srcset", setInfo.srcset)
+    img.setAttribute(
+        "sizes",
+        img.getAttribute("align") ? "(max-width: 608px) 50vw, 187px" : "(max-width: 608px) 100vw, 608px"
+    )
+    return setInfo.fallback
 }
 
 const dimImages = async (rawContent, outputPath) => {
-  let content = rawContent;
+    let content = rawContent
 
-  if (outputPath && outputPath.endsWith(".html")) {
-    const dom = new JSDOM(content);
-    const images = [...dom.window.document.querySelectorAll("img,amp-img")];
+    if (outputPath && outputPath.endsWith(".html")) {
+        const dom = new JSDOM(content)
+        const images = [...dom.window.document.querySelectorAll("img,amp-img")]
 
-    if (images.length > 0) {
-      await Promise.all(images.map((i) => processImage(i, outputPath)));
-      content = dom.serialize();
+        if (images.length > 0) {
+            await Promise.all(images.map((i) => processImage(i, outputPath)))
+            content = dom.serialize()
+        }
     }
-  }
 
-  return content;
-};
+    return content
+}
 
 module.exports = {
-  initArguments: {},
-  configFunction: async (eleventyConfig, pluginOptions = {}) => {
-    eleventyConfig.addTransform("imgDim", dimImages);
-  },
-};
+    initArguments: {},
+    configFunction: async (eleventyConfig, pluginOptions = {}) => {
+        eleventyConfig.addTransform("imgDim", dimImages)
+    },
+}

@@ -19,58 +19,56 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-const { promisify } = require("util");
-const exists = promisify(require("fs").exists);
-const sharp = require("sharp");
+const { promisify } = require("util")
+const exists = promisify(require("fs").exists)
+const sharp = require("sharp")
 
 /**
  * Generates sensible sizes for each image for use in a srcset.
  */
 
-const widths = [1920, 1280, 640, 320];
+const widths = [1920, 1280, 640, 320]
 
 const extension = {
-  jpeg: "jpg",
-  webp: "webp",
-  avif: "avif",
-};
+    jpeg: "jpg",
+    webp: "webp",
+    avif: "avif",
+}
 
 const quality = {
-  avif: 40,
-  default: 60,
-};
+    avif: 40,
+    default: 60,
+}
 
 module.exports = async function srcset(filename, format) {
-  const names = await Promise.all(
-    widths.map((w) => resize(filename, w, format))
-  );
-  return {
-    srcset: names.map((n, i) => `${n} ${widths[i]}w`).join(", "),
-    fallback: names[0],
-  };
-};
+    const names = await Promise.all(widths.map((w) => resize(filename, w, format)))
+    return {
+        srcset: names.map((n, i) => `${n} ${widths[i]}w`).join(", "),
+        fallback: names[0],
+    }
+}
 
 async function resize(filename, width, format) {
-  const out = sizedName(filename, width, format);
-  if (await exists("_site" + out)) {
-    return out;
-  }
-  await sharp("_site" + filename)
-    .rotate() // Manifest rotation from metadata
-    .resize(width)
-    [format]({
-      quality: quality[format] || quality.default,
-      reductionEffort: 6,
-    })
-    .toFile("_site" + out);
+    const out = sizedName(filename, width, format)
+    if (await exists("_site" + out)) {
+        return out
+    }
+    await sharp("_site" + filename)
+        .rotate() // Manifest rotation from metadata
+        .resize(width)
+        [format]({
+            quality: quality[format] || quality.default,
+            reductionEffort: 6,
+        })
+        .toFile("_site" + out)
 
-  return out;
+    return out
 }
 
 function sizedName(filename, width, format) {
-  const ext = extension[format];
-  if (!ext) {
-    throw new Error(`Unknown format ${format}`);
-  }
-  return filename.replace(/\.\w+$/, (_) => "-" + width + "w" + "." + ext);
+    const ext = extension[format]
+    if (!ext) {
+        throw new Error(`Unknown format ${format}`)
+    }
+    return filename.replace(/\.\w+$/, (_) => "-" + width + "w" + "." + ext)
 }
