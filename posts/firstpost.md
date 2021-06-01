@@ -9,7 +9,7 @@ layout: layouts/post.njk
 
 # Hello world
 
-There it is, jet another blog. I need something to fill my domain, and I can use this platform to train my language
+There it is, yet another blog. I need something to fill my domain, and I can use this platform to train my language
 skills. I've heard many goods about 11ty, and there it is. 11ty is my static page generator. So far I like it. For now, I'm using
 ready template [eleventy-high-performance-blog](https://www.industrialempathy.com/posts/eleventy-high-performance-blog/). I've done few
 changes, adjust codebase to my like, but overall a lot of stuff here, just have a sense. I'll use it as a base.
