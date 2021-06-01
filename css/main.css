@@ -1074,6 +1074,7 @@ header nav label {
     font-style: normal;
     text-align: right;
 }
+
 main {
     max-width: 70rem;
     margin: 0 auto;
@@ -1274,4 +1275,9 @@ a {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
+}
+.share-feedback {
+    margin: 90px auto;
+    padding: 40px 0;
+    border-top: 0.5px solid #ccc;
 }
