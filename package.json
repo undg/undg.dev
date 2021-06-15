@@ -4,6 +4,7 @@
     "license": "MIT",
     "description": "A repository for a blog web site using the Eleventy static site generator.",
     "scripts": {
+        "start": "yarn watch",
         "build": "npm run js-build && eleventy && npm run test",
         "watch": "concurrently \"eleventy --serve\" \"npm run js-build-watch\" \"npm run test-watch\"",
         "serve": "eleventy --serve",
@@ -52,7 +53,8 @@
         "hasha": "^5.2.0",
         "html-minifier": "^4.0.0",
         "image-size": "^0.8.3",
-        "lru-cache": "^5.1.1",
+        "jimp": "^0.16.1",
+        "lru-cache": "^6.0.0",
         "mocha": "^8.1.3",
         "phin": "^3.5.0",
         "purge-from-html": "^1.0.3",
