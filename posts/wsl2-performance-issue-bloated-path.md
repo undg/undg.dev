@@ -9,8 +9,7 @@ layout: layouts/post.njk
 
 ### Issue
 
-If you have a perfomance issues in your terminal under wsl2, quite possibly root of the problem are windows directories in your PATH. Problem is obvious when using auto-completion, after press <TAB> terminal is freazzing for
-several seconds.
+If you have a perfomance issues in your terminal under wsl2, quite possibly root of the problem are windows directories in your PATH. Problem is obvious when using auto-completion, press `<TAB>` and terminal is freazzing for several seconds.
 
 ### Hack Fix
 
@@ -22,8 +21,7 @@ export PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep {
 
 ### Confugure wsl.conf
 
-It is not the most elegant way, but it is doing its job. If you like, you can try to configure wsl. There is option for
-that, but I had have a luck with that approach. You can read more about how to [configure WSL](https://devblogs.microsoft.com/commandline/automatically-configuring-wsl/)
+It is not the most elegant way, but it is doing its job. If you like, you can try to configure wsl. There is option for that, but I had have a luck with that approach. You can read more about how to [configure WSL](https://devblogs.microsoft.com/commandline/automatically-configuring-wsl/)
 
 /etc/wsl.conf
 
