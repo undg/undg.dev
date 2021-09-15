@@ -7,7 +7,7 @@ tags:
 layout: layouts/post.njk
 ---
 
-Pulseaudio with noise cancellation module is only basic feature. It's great for cancelling sounds that are coming from your completer, but it will not suppress any noise that is coming from your environment. For that, I'm finding this app's very useful.
+Pulseaudio with noise cancellation module is basic feature. It's great for cancelling sounds that are coming from your speakers, but it will not suppress any noise that is coming from your environment. For that, I'm finding following app's very useful.
 
 ## Camdus
 

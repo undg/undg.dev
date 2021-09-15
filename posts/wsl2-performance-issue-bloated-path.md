@@ -9,11 +9,11 @@ layout: layouts/post.njk
 
 ### Issue
 
-If you have a perfomance issues in your terminal under wsl2, quite possibly root of the problem are windows directories in your PATH. Problem is obvious when using auto-completion, press `<TAB>` and terminal is freazzing for several seconds.
+If you have a perfomance issues in your terminal under wsl2, quite possibly root of your problem is windows directories in your PATH. It's obvious when using auto-completion. Press `<TAB>` and terminal is freazzing for several seconds.
 
 ### Hack Fix
 
-To fix that, lets remove `/mnt/` from path by adding this line to your `.bashrc` or `.profile` file and then `source` it. It is not the most elegant way, but it is doing its job. grep is, split is, join it and export is back as PATH.
+To fix that, remove `/mnt/` from path by adding this line to your `.bashrc` or `.profile` file and then `source` it. It is not the most elegant way, but it is doing its job. Grep it, split it, join it and export it back to PATH.
 
 ```bash
 export PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep { !/\/mnt\/[a-z]/ } split(/:/));'
