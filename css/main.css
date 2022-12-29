@@ -1025,8 +1025,10 @@ header label {
     display: none;
 }
 header {
-    padding: 4.5em 1.5em 3em;
-    width: 37.5em;
+    padding: 4.5em .3em 3em;
+    width: 60em;
+    /* padding: 4.5em 1.5em 3em; */
+    /* width: 37.5em; */
     margin: 0 auto;
     text-align: center;
     max-width: 100%;
@@ -1099,7 +1101,8 @@ footer p {
 article {
     max-width: 100%;
     padding: 1.5em;
-    width: 37.5em;
+    /* width: 37.5em; */
+    width: 60em;
     margin: 0 auto;
 }
 ol,
