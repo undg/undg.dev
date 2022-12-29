@@ -67,7 +67,7 @@ npm run build
 
 - Perfect score in applicable lighthouse audits (including accessibility).
 - Single HTTP request to [First Contentful Paint](https://web.dev/first-contentful-paint/).
-- Very optimized [Largest Contentful Paint](https://web.dev/lcp/) (score depends on image usage, but images are optimized).
+- Very optimized [The Largest Contentful Paint](https://web.dev/lcp/) (score depends on image usage, but images are optimized).
 - 0 [Cumulative Layout Shift](https://web.dev/cls/).
 - ~0 [First Input Delay](https://web.dev/fid/).
 

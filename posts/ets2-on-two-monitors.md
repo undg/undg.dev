@@ -59,6 +59,8 @@ uset r_mode_width "5120"
 
 Full process should not take more than half a minute. Restarting game will probably take longer.
 
+![Euro Track Simulator 2 on two monitors (Linux)](/img/euro-track-on-2-mon.jpg)
+
 ### Reversing dual screen
 
 To reverse it, simply delete monitor that was created.
