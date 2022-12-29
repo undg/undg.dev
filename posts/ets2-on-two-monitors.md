@@ -24,7 +24,7 @@ With `xrand` I can [combine two monitors into one](https://wiki.archlinux.org/ti
 First I need to identify displays that I have to disposition.
 
 ```bash
-$> xrandr --listmonitors
+$ xrandr --listmonitors
 Monitors: 3
  0: +*DisplayPort-1 2560/597x1440/336+0+1080  DisplayPort-1
  1: +DisplayPort-0 2560/597x1440/336+2560+1080  DisplayPort-0
@@ -34,13 +34,13 @@ Monitors: 3
 I want to use `DisplayPort-1` and `DisplayPort-0`. I'll name my new screen as `DP-1_and_DP-0`. Name for newly created screen is arbitrary, but it is used for reversing process. Effect of that command will be instantaneously.
 
 ```bash
-$> xrandr --setmonitor DP-1_and_DP-0 auto DisplayPort-1,DisplayPort-0
+$ xrandr --setmonitor DP-1_and_DP-0 auto DisplayPort-1,DisplayPort-0
 ```
 
 Let's check again list of monitors that are available for us.
 
 ```bash
-$> xrandr --listmonitors
+$ xrandr --listmonitors
 Monitors: 2
  0: DP-1_and_DP-0 5120/597x1440/336+0+1080  DisplayPort-1 DisplayPort-0
  1: +HDMI-A-0 1920/575x1080/323+965+0  HDMI-A-0
@@ -66,7 +66,7 @@ Full process should not take more than half a minute. Restarting game will proba
 To reverse it, simply delete monitor that was created.
 
 ```bash
-$> xrandr --listmonitors
+$ xrandr --listmonitors
 Monitors: 2
  0: DP-1_and_DP-0 5120/597x1440/336+0+1080  DisplayPort-1 DisplayPort-0
  1: +HDMI-A-0 1920/575x1080/323+965+0  HDMI-A-0
@@ -75,13 +75,13 @@ Monitors: 2
 In this example it's `DP-1_and_DP-0`. Full command will be:
 
 ```bash
-$> xrandr --delmonitor DP-1_and_DP-0
+$ xrandr --delmonitor DP-1_and_DP-0
 ```
 
 Result will be immediate. Just out of curiosity, listing monitors to see that everything is back to state from before.
 
 ```bash
-$> xrandr --listmonitors
+$ xrandr --listmonitors
 Monitors: 3
  0: +*DisplayPort-1 2560/597x1440/336+0+1080  DisplayPort-1
  1: +DisplayPort-0 2560/597x1440/336+2560+1080  DisplayPort-0
