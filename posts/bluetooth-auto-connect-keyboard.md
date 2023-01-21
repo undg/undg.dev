@@ -24,7 +24,7 @@ modprobe btintel
 ```
 
 After that in `/etc/bluetooth/main.conf` In section `[Policy]` I've uncommented line
-```conf
+```toml
 AutoEnable=true
 ```
 
