@@ -1,4 +1,3 @@
-
 ---
 title: Auto connect BT
 description: Auto connect bt keyboard in TTY1 (before graphical interface)
