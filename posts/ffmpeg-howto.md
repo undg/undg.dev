@@ -7,33 +7,34 @@ tags: video, linux, ffmpeg
 layout: layouts/post.njk
 ---
 
-## Table of Contents
 
-* Generic Syntax
-* Main Options
-* Encoding :
-    - D10 (aka Sony IMX)
-    - DVCAM / DVCPRO25 / DVCPRO50
-    - VC-3 (aka Avid DNxHD)
-    - FFV1
-    - H.264 I-frame only in Highest Quality
-    - H.264 Long GOP
-    - MPEG-2 I-frame only in Highest Quality
-    - MPEG-2 Long GOP
-* Muxing and Wrapping :
-    - D10 into QuickTime ( for Final Cut Pro import )
-    - MPEG-2 Program Stream
-* Demuxing and Unwrapping :
-    - MPEG-2 Program Stream
-* Timecode Management :
-    - MPEG-2 Start Timecode
-* Misc :
-    - Audio Volume Modification
-    - Input Stream Selection
-    - Sub-clip Creation
-    - Make a Video File from a Single Frame
+%% ## Table of Contents
+%%
+%% * Generic Syntax
+%% * Main Options
+%% * Encoding :
+%%     - D10 (aka Sony IMX)
+%%     - DVCAM / DVCPRO25 / DVCPRO50
+%%     - VC-3 (aka Avid DNxHD)
+%%     - FFV1
+%%     - H.264 I-frame only in Highest Quality
+%%     - H.264 Long GOP
+%%     - MPEG-2 I-frame only in Highest Quality
+%%     - MPEG-2 Long GOP
+%% * Muxing and Wrapping :
+%%     - D10 into QuickTime ( for Final Cut Pro import )
+%%     - MPEG-2 Program Stream
+%% * Demuxing and Unwrapping :
+%%     - MPEG-2 Program Stream
+%% * Timecode Management :
+%%     - MPEG-2 Start Timecode
+%% * Misc :
+%%     - Audio Volume Modification
+%%     - Input Stream Selection
+%%     - Sub-clip Creation
+%%     - Make a Video File from a Single Frame
 
-### Generic Syntax
+## Generic Syntax
 
 `ffmpeg [[infile options][-i infile]]... {[outfile options] outfile}...`
 
@@ -379,6 +380,30 @@ Transcode audio stream #0:2.
 
 `ffmpeg -loop_input -vframes <number_of_frames> -i <input_file> <output_file>`
 
+## [DaVinci Resolve cheatsheet](https://alecaddd.com/davinci-resolve-ffmpeg-cheatsheet-for-linux/)
 
+### Convert MP4 to MOV
+
+This is the command I use to convert a MP4 file recorded from a video camera to a MOV format of the same quality that DaVinci Resolve can import and read.
+
+`ffmpeg -i input.mp4 -vcodec dnxhd -acodec pcm_s16le -s 1920x1080 -r 30000/1001 -b:v 36M -pix_fmt yuv422p -f mov output.mov`
+
+
+### Convert MKV to MOV with Multiple Audio Tracks
+
+This command seems a bit far-fetched, but if you’re on Linux like me, you’d know that recording multiple audio tracks from OBS is only supported with the MKV video format. Since DaVinci Resolve doesn’t support MVK, here’s the command I use to convert that file into a readable MOV while keeping the audio on their separated tracks.
+
+`ffmpeg -i input.mkv -map 0:0 -map 0:1 -map 0:2 -vcodec dnxhd -acodec:0 pcm_s16le -acodec:1 pcm_s16le -s 1920x1080 -r 30000/1001 -b:v 36M -pix_fmt yuv422p -f mov output.mov`
+
+### Convert MP4 to MOV
+
+When it comes to rendering a file from DaVinci Resolve, I was forced to stick with the MOV format with some high video/audio codec settings. The rendered file is not small, but nonetheless, FFmpeg is more than capable of handling it and converting it into a slim and crisp MP4.
+
+### Convert MOV to MP4
+
+The settings I’m using are those recommended by YouTube for a fast upload and a almost zero processing.
+If the file size is too big, you can control the quality with the -crf 1 option, changing the number up until 25, where a higher number means lower quality.
+
+`ffmpeg -i input.mov -vf yadif -codec:v libx264 -crf 1 -bf 2 -flags +cgop -pix_fmt yuv420p -codec:a aac -strict -2 -b:a 384k -r:a 48000 -movflags faststart output.mp4`
 
 
