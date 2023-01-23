@@ -395,11 +395,9 @@ This command seems a bit far-fetched, but if you’re on Linux like me, you’d 
 
 `ffmpeg -i input.mkv -map 0:0 -map 0:1 -map 0:2 -vcodec dnxhd -acodec:0 pcm_s16le -acodec:1 pcm_s16le -s 1920x1080 -r 30000/1001 -b:v 36M -pix_fmt yuv422p -f mov output.mov`
 
-### Convert MP4 to MOV
+### Convert MOV to MP4
 
 When it comes to rendering a file from DaVinci Resolve, I was forced to stick with the MOV format with some high video/audio codec settings. The rendered file is not small, but nonetheless, FFmpeg is more than capable of handling it and converting it into a slim and crisp MP4.
-
-### Convert MOV to MP4
 
 The settings I’m using are those recommended by YouTube for a fast upload and a almost zero processing.
 If the file size is too big, you can control the quality with the -crf 1 option, changing the number up until 25, where a higher number means lower quality.
