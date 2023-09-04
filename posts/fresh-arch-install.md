@@ -35,72 +35,6 @@ makepkg -si
 
 * This is list of my essential packages to start with:
 
-#### Written by organic human
-
-```bash
-alacritty
-arandr
-audacity
-brave-bin
-cmatrix
-composer
-curl
-downgrade
-dunst
-etcher-bin
-exa
-fasd
-fd
-fping
-fzf
-git
-htop
-i3blocks
-jq
-julia
-kitty
-kodi
-lazygit
-luarocks
-nemo
-neovim
-noto-fonts-emoji
-openssh
-pavucontrol
-pipewire
-pipewire-pulse
-prettierd
-python-pynvim
-ranger
-reflector
-ripgrep
-rofi
-rofi-calc
-rofi-emoji
-rsync
-rtx
-rubygems
-rust
-sddm
-sddm-archlinux-theme-git
-stow
-the_silver_searcher
-tig
-tmux
-translate-shell
-trash-cli
-tree-sitter
-tree-sitter-cli
-wget
-xclip
-xsel
-zsh
-zsh-theme-powerlevel10k-git
-network-manager-applet
-```
-
-
-
 #### Installed from AUR (`-m` not found in repo db)
 
 ```bash
@@ -139,6 +73,7 @@ dunst
 efibootmgr
 exa
 fasd
+feh
 fd
 flameshot
 flatpak
