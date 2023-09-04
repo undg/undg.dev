@@ -25,7 +25,8 @@ Post install process is more challenging, due to do it once nature. Last time I'
 * `chroot` to new system while still in live iso.
 * Install few packages. Some of the can be in aur. I like `yay` as as `pacman` wrapper with aur support.
 * Install `yay` (bin version compiled on gh-actions, you can compile it yourself if)
-```
+
+```bash
 pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/yay-bin.git
 cd yay-bin
@@ -35,7 +36,7 @@ makepkg -si
 * This is list of my essential packages to start with:
 
 Written by hand
-```
+```bash
 alacritty
 arandr
 audacity
@@ -100,7 +101,7 @@ zsh-theme-powerlevel10k-git
 
 `pacman -Qm | awk '{print $1}'`
 
-```
+```bash
 brave-bin
 downgrade
 etcher-bin
@@ -115,7 +116,7 @@ zsh-theme-powerlevel10k-git
 
 `pacman -Qm | awk '{print $1}'`
 
-```
+```bash
 alacritty
 amd-ucode
 arandr
@@ -209,6 +210,7 @@ zsh
 ```
 
 * all nerd-fonts:
+
 `sudo pacman -S $(pacman -Sgq nerd-fonts)`
 
 #### I have home in separate partition and cloned drive:
@@ -219,7 +221,8 @@ zsh
 
 ### Iriun webcam for Linux
 I cant justify buying crappy webcam, when I have good one in my phone.
-```
+
+```bash
 yay iriunwebcam-bin
 
 # install and enable kernel module
