@@ -35,7 +35,8 @@ makepkg -si
 
 * This is list of my essential packages to start with:
 
-Written by hand
+### Written by organic creature.
+
 ```bash
 alacritty
 arandr
@@ -99,7 +100,11 @@ zsh-theme-powerlevel10k-git
 
 
 
-`pacman -Qm | awk '{print $1}'`
+### Installed from AUR (`-m` not found in repo db)
+
+```bash
+pacman -Qm | awk '{print $1}'
+```
 
 ```bash
 brave-bin
@@ -114,7 +119,10 @@ yay-git
 zsh-theme-powerlevel10k-git
 ```
 
-`pacman -Qm | awk '{print $1}'`
+### Installed from official repo (`-n` found in repo db, `-e` explicitly installed)
+```bash
+pacman -Qne | awk '{print $1}'
+```
 
 ```bash
 alacritty
@@ -208,10 +216,6 @@ yarn
 zram-generator
 zsh
 ```
-
-* all nerd-fonts:
-
-`sudo pacman -S $(pacman -Sgq nerd-fonts)`
 
 #### I have home in separate partition and cloned drive:
 * Remove content of current `home` directory (small temporary backup is always good practice, for fresh install not necessary and if you know what you doing).
