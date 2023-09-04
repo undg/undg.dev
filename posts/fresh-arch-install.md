@@ -35,7 +35,7 @@ makepkg -si
 
 * This is list of my essential packages to start with:
 
-### Written by organic creature.
+#### Written by organic human
 
 ```bash
 alacritty
@@ -100,7 +100,7 @@ zsh-theme-powerlevel10k-git
 
 
 
-### Installed from AUR (`-m` not found in repo db)
+#### Installed from AUR (`-m` not found in repo db)
 
 ```bash
 pacman -Qm | awk '{print $1}'
@@ -119,7 +119,7 @@ yay-git
 zsh-theme-powerlevel10k-git
 ```
 
-### Installed from official repo (`-n` found in repo db, `-e` explicitly installed)
+#### Installed from official repo (`-n` found in repo db, `-e` explicitly installed)
 ```bash
 pacman -Qne | awk '{print $1}'
 ```
@@ -223,7 +223,7 @@ zsh
 * If you have separate partitions for var, log, whatever, repeat that process.
 * Enjoy your fresh install for another couple of years.
 
-### Iriun webcam for Linux
+#### Iriun webcam for Linux
 I cant justify buying crappy webcam, when I have good one in my phone.
 
 ```bash
