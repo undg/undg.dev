@@ -263,3 +263,14 @@ sudo systemctl start NetworkManager.service
 
 Run `nm-applet` for tray icon, or `nmcli help` for more user friendly experience 😁.
 
+#### sshd
+
+Make sure that `openssh` is installed, enabled and started in systed.
+
+Find `Port=22` and change to whatever is not standard.
+
+```bash
+sudo nvim /etc/ssh/sshd_config
+
+sudo systemctl restart sshd
+```
