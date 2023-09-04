@@ -130,6 +130,7 @@ alacritty
 amd-ucode
 arandr
 audacity
+barrier
 base
 base-devel
 cmatrix
