@@ -96,6 +96,7 @@ xclip
 xsel
 zsh
 zsh-theme-powerlevel10k-git
+network-manager-applet
 ```
 
 
@@ -165,6 +166,8 @@ luarocks
 man-db
 nemo
 neovim
+networkmanager
+network-manager-applet
 noto-fonts-emoji
 npm
 openssh
@@ -235,4 +238,27 @@ sudo pacman -S linux-headers v4l2loopback-dkms
 modprobe v4l2loopback
 sudo rmmod v4l2loopback; sudo modprobe v4l2loopback
 ```
+
+#### NetworkManager
+
+`networkctl` (from `systemd-networkd.service`) is perfectly fine for server configuration. For desktop experience thought, we want to use `NetworkManager` that can be used by few gui tools. Most important for me is system tray icon with network status.
+
+Make sure that you have installed:
+
+```bash
+networkmanager
+network-manager-applet
+```
+
+Stop and disable systemd-networkd service, then enable and start service from NetworkManager. Never run them both running in the same time.
+
+```bash
+sudo systemctl disable systemd-networkd.service
+sudo systemctl stop systemd-networkd.service
+
+sudo systemctl enable NetworkManager.service
+sudo systemctl start NetworkManager.service
+```
+
+Run `nm-applet` for tray icon, or `nmcli help` for more user friendly experience 😁.
 
