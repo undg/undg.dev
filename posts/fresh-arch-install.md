@@ -274,3 +274,14 @@ sudo nvim /etc/ssh/sshd_config
 
 sudo systemctl restart sshd
 ```
+
+
+todo:
+* [ ] screen tearing
+* [ ] test performance of GPU
+* [ ] test CPU performance
+* [ ] temperature monitor utility
+* [ ] Steam
+* [ ] Blizzard
+* [ ] VM-box
+
