@@ -9,7 +9,7 @@ layout: layouts/post.njk
 
 Installation of archlinux is rather simple and straightforward task. You have control over every important aspect, and you are less likely to face some "magical" problems.
 
-Post install process is more challenging, due to do it once nature. Last time I've reinstalled Arch from scratch was about 5-6y ago. I don't remember what I've changed in the system from that time. Bellow is my log of what I've done this time. I'll (at least try) update it with all steps necessary to bring back all features I previously got. This is my personal setup that works with my dotfiles.
+Post install process is more challenging, due to do it once nature. Last time I've reinstalled Arch from scratch was about 5-6y ago. I don't remember what I've changed in the system from that time. Bellow is my log of what I've done this time. I'll (at least try) update it with all steps necessary to bring back all features I previously got. This is my personal setup that works with my [dotfiles](https://github.com/undg/.dot).
 
 ## Easy part, no brainer
 * Download latest iso from https://archlinux.org/
@@ -52,6 +52,7 @@ rtx
 sddm-archlinux-theme-git
 yay-git
 zsh-theme-powerlevel10k-git
+volctl
 ```
 
 #### Installed from official repo (`-n` found in repo db, `-e` explicitly installed)
@@ -210,9 +211,12 @@ sudo nvim /etc/ssh/sshd_config
 sudo systemctl restart sshd
 ```
 
+#### Solve screen tearing
+
+Install composite manager and play with vsync. My choice is `picom`, [config is in dotfiles](https://github.com/undg/.dot/blob/master/i3/.config/picom.conf)
 
 todo:
-* [ ] screen tearing
+* [x] screen tearing
 * [ ] test performance of GPU
 * [ ] test CPU performance
 * [ ] temperature monitor utility
