@@ -46,6 +46,7 @@ pacman -Qm | awk '{print $1}'
 brave-bin
 downgrade
 etcher-bin
+htop-vim
 iriunwebcam-bin
 microsoft-edge-stable-bin
 nodejs-cspell
@@ -88,7 +89,6 @@ git-delta
 github-cli
 gst-plugin-pipewire
 hq
-htop
 i3-wm
 i3blocks
 jq
