@@ -48,12 +48,13 @@ downgrade
 etcher-bin
 iriunwebcam-bin
 microsoft-edge-stable-bin
+nodejs-cspell
 prettierd
 rtx
 sddm-archlinux-theme-git
+volctl
 yay-git
 zsh-theme-powerlevel10k-git
-volctl
 
 ```
 
