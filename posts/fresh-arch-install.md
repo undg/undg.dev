@@ -42,6 +42,7 @@ pacman -Qm | awk '{print $1}'
 ```
 
 ```bash
+
 brave-bin
 downgrade
 etcher-bin
@@ -53,6 +54,7 @@ sddm-archlinux-theme-git
 yay-git
 zsh-theme-powerlevel10k-git
 volctl
+
 ```
 
 #### Installed from official repo (`-n` found in repo db, `-e` explicitly installed)
@@ -61,6 +63,7 @@ pacman -Qne | awk '{print $1}'
 ```
 
 ```bash
+
 alacritty
 amd-ucode
 arandr
@@ -74,8 +77,8 @@ dunst
 efibootmgr
 exa
 fasd
-feh
 fd
+feh
 flameshot
 flatpak
 fping
@@ -101,12 +104,14 @@ linux-headers
 linux-zen
 luarocks
 man-db
+mpv
 nemo
 neovim
-networkmanager
 network-manager-applet
+networkmanager
 noto-fonts-emoji
 npm
+obs-studio
 openssh
 otf-aurulent-nerd
 otf-codenewroman-nerd
@@ -144,6 +149,7 @@ trash-cli
 tree-sitter-cli
 ttf-mononoki-nerd
 unzip
+vlc
 vulkan-radeon
 wget
 wireplumber
@@ -155,6 +161,7 @@ xorg-xinit
 yarn
 zram-generator
 zsh
+
 ```
 
 #### I have home in separate partition and cloned drive:
