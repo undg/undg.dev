@@ -223,7 +223,11 @@ sudo systemctl restart sshd
 
 Install composite manager and play with vsync. My choice is `picom`, [config is in dotfiles](https://github.com/undg/.dot/blob/master/i3/.config/picom.conf)
 
-todo:
+#### Todo:
+* [x] home on separate partition
+* [x] phone webcam
+* [x] network
+* [x] ssh
 * [x] screen tearing
 * [ ] test performance of GPU
 * [ ] test CPU performance
