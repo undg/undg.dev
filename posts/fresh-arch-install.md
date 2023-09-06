@@ -37,7 +37,7 @@ makepkg -si
 
 If you want to enable testing repo's enable all of them (including mesa-git for AMD gpu)
 
-```confini
+```ini
 # Misc options
 UseSyslog
 Color
@@ -277,7 +277,7 @@ Enable multilib in `/etc/pacman.conf`, sync pacman and install Steam
 sudo nvim /etc/pacman.conf
 ```
 
-```confini
+```ini
 [multilib]
 Include = /etc/pacman.d/mirrorlist
 ```
