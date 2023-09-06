@@ -33,7 +33,54 @@ cd yay-bin
 makepkg -si
 ```
 
-* This is list of my essential packages to start with:
+#### Edit `/etc/pacman.conf`
+
+If you want to enable testing repo's enable all of them (including mesa-git for AMD gpu)
+
+```confini
+# Misc options
+UseSyslog
+Color
+CheckSpace
+VerbosePkgLists
+ParallelDownloads = 12
+DisableDownloadTimeout
+ILoveCandy
+
+# (...)
+# The testing repositories are disabled by default. To enable, uncomment the
+# repo name header and Include lines. You can add preferred servers immediately
+# after the header, and they will be used before the default mirrors.
+
+#[core-testing]
+#Include = /etc/pacman.d/mirrorlist
+
+
+[core]
+Include = /etc/pacman.d/mirrorlist
+
+#[extra-testing]
+#Include = /etc/pacman.d/mirrorlist
+
+[extra]
+Include = /etc/pacman.d/mirrorlist
+
+# If you want to run 32 bit applications on your x86_64 system,
+# enable the multilib repositories as required here.
+
+#[multilib-testing]
+#Include = /etc/pacman.d/mirrorlist
+
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+
+# Maintainer: [Laurent Carlier](https://archlinux.org/people/trusted-users/#lcarlier)
+# Description: Mesa git builds for the testing repositories
+#[mesa-git]
+#Server = https://pkgbuild.com/~lcarlier/$repo/$arch
+
+```
+
 
 #### Installed from AUR (`-m` not found in repo db)
 
@@ -221,7 +268,28 @@ sudo systemctl restart sshd
 
 #### Solve screen tearing
 
-Install composite manager and play with vsync. My choice is `picom`, [config is in dotfiles](https://github.com/undg/.dot/blob/master/i3/.config/picom.conf)
+Install composite manager and play with vsync. My choice is `picom`, [config is in dotfiles](https://github.com/undg/.dot/blob/master/vm/.config/picom.conf)
+
+#### Steam
+Enable multilib in `/etc/pacman.conf`, sync pacman and install Steam
+
+```bash
+sudo nvim /etc/pacman.conf
+```
+
+```confini
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+```
+
+```bash
+sudo pacman -Suy
+sudo pacman -S steam
+```
+
+#### OC and performance
+
+Install `lm_sensors`, for reading temperature run command `sensors`. More on https://hwmon.wiki.kernel.org/faq?s%5b%5d=lm_sensors and https://wiki.archlinux.org/title/lm_sensors
 
 #### Todo:
 * [x] home on separate partition
@@ -229,10 +297,10 @@ Install composite manager and play with vsync. My choice is `picom`, [config is 
 * [x] network
 * [x] ssh
 * [x] screen tearing
-* [ ] test performance of GPU
-* [ ] test CPU performance
-* [ ] temperature monitor utility
-* [ ] Steam
+* [x] temperature monitor utility
+    * [x] test performance of GPU
+    * [x] test CPU performance
+* [x] Steam
 * [ ] Blizzard
 * [ ] VM-box
 
