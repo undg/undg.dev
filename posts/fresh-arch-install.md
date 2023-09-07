@@ -291,6 +291,10 @@ sudo pacman -S steam
 
 Install `lm_sensors`, for reading temperature run command `sensors`. More on https://hwmon.wiki.kernel.org/faq?s%5b%5d=lm_sensors and https://wiki.archlinux.org/title/lm_sensors
 
+Stress test cpu with `sudo stress --spu 16 --timeout 30`.
+Stress test gpu `glmark2`
+Adjust fan speed with `coolerControl`. Save same values and temps in BIOS.
+
 #### Todo:
 * [x] home on separate partition
 * [x] phone webcam
@@ -300,6 +304,8 @@ Install `lm_sensors`, for reading temperature run command `sensors`. More on htt
 * [x] temperature monitor utility
     * [x] test performance of GPU
     * [x] test CPU performance
+    * [x] adjust fan speed (system)
+    * [ ] adjust fan speed (bios)
 * [x] Steam
 * [ ] Blizzard
 * [ ] VM-box
