@@ -1,5 +1,5 @@
 {
-    "title": "U.N.D.G.",
+    "title": "undg",
     "url": "http://undg.xyz",
     "domain": "undg.xyz",
     "description": "Geek stuff by undg.",
@@ -21,6 +21,6 @@
         "twitterHandle": "undg__"
     },
     "publisher": {
-        "name": "Publisher name. Update me."
+        "name": "undg"
     }
 }
