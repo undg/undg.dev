@@ -141,6 +141,8 @@ gst-plugin-pipewire
 hq
 i3-wm
 i3blocks
+i3lock
+imagemagick
 jq
 julia
 kitty
@@ -190,6 +192,7 @@ rofi-emoji
 rsync
 ruby
 rust
+scrot
 sddm
 stow
 the_silver_searcher
