@@ -31,3 +31,10 @@ Search for package name in remote that contains file
 
 Search for package name in system that contains file
 :   `pacman -Qo`
+
+List of installed packages, that are part of official repository. Exclude dependencies.
+:   `pacman -Qne | awk '{print $1}'`
+
+List of installed packages, not found in official repository.
+Most likely from AUR, however sometimes they are packages that are no longer maintained.
+:   `pacman -Qm`
