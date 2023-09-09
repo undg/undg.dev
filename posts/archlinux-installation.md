@@ -127,7 +127,7 @@ cmatrix
 composer
 dunst
 efibootmgr
-exa
+eza
 fasd
 fd
 feh
