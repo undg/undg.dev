@@ -120,6 +120,9 @@ audacity
 barrier
 base
 base-devel
+blueman
+bluez
+bluez-utils
 cmatrix
 composer
 dunst
@@ -313,9 +316,9 @@ If needed, enable and connect to trusted devices before Xorg: https://undg.xyz/p
     * [x] test performance of GPU
     * [x] test CPU performance
     * [x] adjust fan speed (system)
-    * [ ] adjust fan speed (bios)
+    * [x] adjust fan speed (bios)
 * [x] Steam
-* [ ] Bluetooth
+* [x] Bluetooth
 * [ ] Blizzard
 * [ ] VM-box
 
