@@ -295,6 +295,14 @@ Stress test cpu with `sudo stress --spu 16 --timeout 30`.
 Stress test gpu `glmark2`
 Adjust fan speed with `coolerControl`. Save same values and temps in BIOS.
 
+#### Bluetooth
+
+Install `bluez` daemon, enable and start `bluetooth.service`.
+
+Install `blueman` (gui) and `bluez-utils` (cli `bluetoothctl`) for frontend.
+
+If needed, enable and connect to trusted devices before Xorg: https://undg.xyz/posts/bluetooth-auto-connect-keyboard/
+
 #### Todo:
 * [x] home on separate partition
 * [x] phone webcam
@@ -307,6 +315,7 @@ Adjust fan speed with `coolerControl`. Save same values and temps in BIOS.
     * [x] adjust fan speed (system)
     * [ ] adjust fan speed (bios)
 * [x] Steam
+* [ ] Bluetooth
 * [ ] Blizzard
 * [ ] VM-box
 

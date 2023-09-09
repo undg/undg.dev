@@ -9,7 +9,7 @@ layout: layouts/post.njk
 
 ## My login screen
 
-Call me weirdo, but my favorite login manager is simple default TTY1. For that reason I can't rely on fancy GUI tools. Usually I'm using blueman for managing Bluetooth devices, but blutoothctl is fine from time to time.
+Call me weirdo, but my favorite login manager is simple default TTY1. For that reason I can't rely on fancy GUI tools. Usually I'm using `blueman` for managing Bluetooth devices, but `blutoothctl` that is part of `bluez-utils` is fine.
 
 ## Preparation
 
@@ -46,8 +46,7 @@ bluetoothctl pair 01:01:01:01:01:01:
 bluetoothctl trust 01:01:01:01:01:01:
 bluetoothctl connect 01:01:01:01:01:01:
 
-# optionally to save power, f.e. on laptop
+# optionally to save power, f.e. laptop
 bluetoothctl scan off
 ```
 
-Same thing can be done in any GUI tool.
