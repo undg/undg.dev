@@ -7,3 +7,4 @@ js/min.js.map
 .netlify/
 export
 .netlify
+yarn-error.log
