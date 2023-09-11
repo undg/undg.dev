@@ -295,78 +295,7 @@ sudo pacman -S steam
 
 #### OC and performance
 
-Install `lm_sensors`, for reading temperature run command `sensors`. More on https://hwmon.wiki.kernel.org/faq?s%5b%5d=lm_sensors and https://wiki.archlinux.org/title/lm_sensors
-
-Stress test cpu with `sudo stress --spu 16 --timeout 30`.
-Stress test gpu `glmark2`
-Adjust fan speed with `coolerControl`. Save same values and temps in BIOS.
-
-##### OC for Gigabyte B550 AORUS ELITE AX V2.
-
-Check mobo type: `sudo dmidecode -t 2`
-
-Look for updates on https://wiki.archlinux.org/title/Lm_sensors#Setup
-
-tldr;
-Install `it87-dkms-git` kernel module from aur and enable `acpi_enforce_resources=lax` kernel parameter.
-
-As I'm using systemd-boot I need to edit file `/boot/loader/entries/2023-09-02_20-42-48_linux.conf` by adding `acpi_enforce_resources=lax` to line with boot `options`
-
-```ini
-# Created by: archinstall
-# Created on: 2023-09-02_20-42-48
-title   Arch Linux (linux)
-linux   /vmlinuz-linux
-initrd  /amd-ucode.img
-initrd  /initramfs-linux.img
-options root=PARTUUID=df86fb99-154a-4d14-9e09-74fea3c612ab zswap.enabled=0 rw rootfstype=ext4 acpi_enforce_resources=lax
-```
-
-For loading module run.
-```bash
-modprobe it87
-```
-
-To make that change persistent, create two files:
-
-`/etc/modules-load.d/it87.conf`
-
-```ini
-it87
-```
-
-`/etc/modprobe.d/it87.conf`
-
-```ini
-options it87 ignore_resource_conflict=1
-```
-
-To fix fun control I have to reload `k10temp` module.
-
-```bash
-sudo rmmod k10temp
-sudo modprobe k10temp
-```
-
-To make that change persistent, by forcing to load that module on boot, create file:
-
-`/etc/modprobe.d/k10temp.conf`
-
-```ini
-# To fix k10temp fan(1,2,3,4,...)
-# https://wiki.archlinux.org/title/lm_sensors#K10Temp_module
-
-options k10temp force=1
-```
-
-If you are using `coolerControl`, enable service.
-
-```bash
-sudo systemctl enable coolercontrold.service
-sudo systemctl start coolercontrold.service
-```
-
-
+[undg:lm_sensros setup and fixes for Gigabyte B550 AORUS AX V2](/posts/lm_sensors-fix-gigabyte-b550-aorus-ax-v2/)
 
 #### Bluetooth
 
@@ -374,7 +303,7 @@ Install `bluez` daemon, enable and start `bluetooth.service`.
 
 Install `blueman` (gui) and `bluez-utils` (cli `bluetoothctl`) for frontend.
 
-If needed, enable and connect to trusted devices before Xorg: https://undg.xyz/posts/bluetooth-auto-connect-keyboard/
+If needed, enable and connect to trusted devices before Xorg: [undg:Enable bluetooth keyboard before xstart](/posts/bluetooth-auto-connect-keyboard/)
 
 #### Todo:
 * [x] home on separate partition
