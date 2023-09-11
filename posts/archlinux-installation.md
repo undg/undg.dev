@@ -341,6 +341,31 @@ it87
 options it87 ignore_resource_conflict=1
 ```
 
+To fix fun control I have to reload `k10temp` module.
+
+```bash
+sudo rmmod k10temp
+sudo modprobe k10temp
+```
+
+To make that change persistent, by forcing to load that module on boot, create file:
+
+`/etc/modprobe.d/k10temp.conf`
+
+```ini
+# To fix k10temp fan(1,2,3,4,...)
+# https://wiki.archlinux.org/title/lm_sensors#K10Temp_module
+
+options k10temp force=1
+```
+
+If you are using `coolerControl`, enable service.
+
+```bash
+sudo systemctl enable coolercontrold.service
+sudo systemctl start coolercontrold.service
+```
+
 
 
 #### Bluetooth
