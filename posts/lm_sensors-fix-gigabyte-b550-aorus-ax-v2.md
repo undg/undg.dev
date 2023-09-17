@@ -85,4 +85,5 @@ sudo systemctl enable coolercontrold.service
 sudo systemctl start coolercontrold.service
 ```
 
+For voltage control: `corectrl` https://gitlab.com/corectrl/corectrl
 
