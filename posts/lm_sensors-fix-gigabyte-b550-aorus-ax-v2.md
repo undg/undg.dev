@@ -78,12 +78,12 @@ To make that change persistent, force module on boot. Create file:
 options k10temp force=1
 ```
 
-If you are using `coolerControl`, enable service.
+If you are using [coolerControl](https://gitlab.com/coolercontrol/coolercontrol), enable service.
 
 ```bash
 sudo systemctl enable coolercontrold.service
 sudo systemctl start coolercontrold.service
 ```
 
-For voltage control: `corectrl` https://gitlab.com/corectrl/corectrl
+For voltage control: [corectrl](https://gitlab.com/corectrl/corectrl)
 
