@@ -143,6 +143,7 @@ i3-wm
 i3blocks
 i3lock
 imagemagick
+inetutils
 jq
 julia
 kitty
