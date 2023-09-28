@@ -211,6 +211,7 @@ wireplumber
 xclip
 xf86-video-amdgpu
 xf86-video-ati
+xkill
 xorg-server
 xorg-xinit
 yarn
