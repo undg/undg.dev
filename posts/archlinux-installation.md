@@ -182,6 +182,8 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
+polkit
+polkit-qt5
 python-pip
 python-pynvim
 ranger
@@ -198,6 +200,7 @@ sddm
 stow
 the_silver_searcher
 tig
+timeshift
 tmux
 translate-shell
 trash-cli
