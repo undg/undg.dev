@@ -184,6 +184,7 @@ pipewire-jack
 pipewire-pulse
 polkit
 polkit-qt5
+lxqt-policykit-agent
 python-pip
 python-pynvim
 ranger
