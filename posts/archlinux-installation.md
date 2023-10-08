@@ -94,6 +94,7 @@ brave-bin
 downgrade
 etcher-bin
 htop-vim
+i3blocks-contrib-git
 iriunwebcam-bin
 microsoft-edge-stable-bin
 nodejs-cspell
