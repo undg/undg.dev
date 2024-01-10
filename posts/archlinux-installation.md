@@ -158,9 +158,11 @@ linux-firmware
 linux-headers
 linux-zen
 luarocks
+lxqt-policykit-agent
 man-db
 mpv
 nemo
+nemo-fileroller
 neovim
 network-manager-applet
 networkmanager
@@ -185,7 +187,6 @@ pipewire-jack
 pipewire-pulse
 polkit
 polkit-qt5
-lxqt-policykit-agent
 python-pip
 python-pynvim
 ranger
