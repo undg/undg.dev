@@ -117,6 +117,7 @@ pacman -Qne | awk '{print $1}'
 alacritty
 amd-ucode
 arandr
+atuin
 audacity
 barrier
 base
