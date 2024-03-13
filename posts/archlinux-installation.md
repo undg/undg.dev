@@ -7,24 +7,26 @@ tags: linux, archlinux, btw
 layout: layouts/post.njk
 ---
 
-Installation of archlinux is rather simple and straightforward task. You have control over every important aspect, and you are less likely to face some "magical" problems.
+Installation of Arch Linux is a rather simple and straightforward task. You have control over every important aspect, and you are less likely to face some "magical" problems.
 
-Post install process is more challenging, due to do it once nature. Last time I've reinstalled Arch from scratch was about 5-6y ago. I don't remember what I've changed in the system from that time. Bellow is my log of what I've done this time. I'll (at least try) update it with all steps necessary to bring back all features I previously got. This is my personal setup that works with my [dotfiles](https://github.com/undg/.dot).
+The post-install process is more challenging, due to its "do it once" nature. The last time I reinstalled Arch from scratch was about 5-6 years ago. I don't remember what changes I've made to the system since then. Below is my log of what I've done this time. I'll (at least try to) update it with all the steps necessary to bring back all the features I previously had. This is my personal setup that works with my [dotfiles](https://github.com/undg/.dot).
 
 ## Easy part, no brainer
-* Download latest iso from https://archlinux.org/
-* Burn iso on pen with https://etcher.balena.io/
-* boot from pendrive
-* Prepare one clean partition with `fdisk` or any other utility of your choice. I'm choosing whole 250gb drive. It's overkill, but large padding of free space, have drive health benefits.
-* https://wiki.archlinux.org/title/archinstall or do it manually following https://wiki.archlinux.org/title/installation_guide . With archinstall, you can save all steps, and use them later with `archinstall --config` flag.
-* For audio pipewire looks like solid solution. Don't forget about pipewire-pulse adapter in post install.
-* If you have `home` on separate partition, ignore it for now. It can be mounted in post install.
-* Finish installation.
+
+-   Download latest iso from https://archlinux.org/
+-   Burn iso on pen with https://etcher.balena.io/
+-   boot from pendrive
+-   Prepare one clean partition with `fdisk` or any other utility of your choice. I'm choosing whole 250gb drive. It's overkill, but large padding of free space, have drive health benefits.
+-   https://wiki.archlinux.org/title/archinstall or do it manually following https://wiki.archlinux.org/title/installation_guide . With archinstall, you can save all steps, and use them later with `archinstall --config` flag.
+-   For audio pipewire looks like solid solution. Don't forget about pipewire-pulse adapter in post install.
+-   If you have `home` on separate partition, ignore it for now. It can be mounted in post install.
+-   Finish installation.
 
 ## Post installation
-* `chroot` to new system while still in live iso.
-* Install few packages. Some of the can be in aur. I like `yay` as as `pacman` wrapper with aur support.
-* Install `yay` (bin version compiled on gh-actions, you can compile it yourself if)
+
+-   `chroot` to new system while still in live iso.
+-   Install few packages. Some of the can be in aur. I like `yay` as as `pacman` wrapper with aur support.
+-   Install `yay` (bin version compiled on gh-actions, you can compile it yourself if)
 
 ```bash
 pacman -S --needed git base-devel
@@ -81,7 +83,6 @@ Include = /etc/pacman.d/mirrorlist
 
 ```
 
-
 #### Installed from AUR (`-m` not found in repo db)
 
 ```bash
@@ -108,6 +109,7 @@ zsh-theme-powerlevel10k-git
 ```
 
 #### Installed from official repo (`-n` found in repo db, `-e` explicitly installed)
+
 ```bash
 pacman -Qne | awk '{print $1}'
 ```
@@ -228,12 +230,14 @@ zsh
 ```
 
 #### I have home in separate partition and cloned drive:
-* Remove content of current `home` directory (small temporary backup is always good practice, for fresh install not necessary and if you know what you doing).
-* Mount partition with your `old home partition` to current one. Save it in `/ets/fstab`. For me it was just copy paste fstab from old os to new (backup with rsync FTW). Don't forgotten that uuids for recreated partitions will change. If you are using disk location (sda1, sdb1, nvme0n1, ...), they need to be connected to same sockets in motherboard. `lsblk` is your friend to check that, `sudo fdisk -l` if you need more info (including uuids), another option is `blkid`, and my favorite `ls -lha /dev/disk/by-uuid`.
-* If you have separate partitions for var, log, whatever, repeat that process.
-* Enjoy your fresh install for another couple of years.
+
+-   Remove content of current `home` directory (small temporary backup is always good practice, for fresh install not necessary and if you know what you doing).
+-   Mount partition with your `old home partition` to current one. Save it in `/ets/fstab`. For me it was just copy paste fstab from old os to new (backup with rsync FTW). Don't forgotten that uuids for recreated partitions will change. If you are using disk location (sda1, sdb1, nvme0n1, ...), they need to be connected to same sockets in motherboard. `lsblk` is your friend to check that, `sudo fdisk -l` if you need more info (including uuids), another option is `blkid`, and my favorite `ls -lha /dev/disk/by-uuid`.
+-   If you have separate partitions for var, log, whatever, repeat that process.
+-   Enjoy your fresh install for another couple of years.
 
 #### Iriun webcam for Linux
+
 I cant justify buying crappy webcam, when I have good one in my phone.
 
 ```bash
@@ -283,9 +287,10 @@ sudo systemctl restart sshd
 
 #### Solve screen tearing
 
-Install composite manager and play with vsync. My choice is `picom`, [config is in dotfiles](https://github.com/undg/.dot/blob/master/vm/.config/picom.conf)
+Install composite manager and play with vsync. My choice is `picom`, [config is in dotfiles](https://github.com/undg/.dot/blob/master/window-manager/.config/picom.conf)
 
 #### Steam
+
 Enable multilib in `/etc/pacman.conf`, sync pacman and install Steam
 
 ```bash
@@ -315,18 +320,18 @@ Install `blueman` (gui) and `bluez-utils` (cli `bluetoothctl`) for frontend.
 If needed, enable and connect to trusted devices before Xorg: [undg:Enable bluetooth keyboard before xstart](/posts/bluetooth-auto-connect-keyboard/)
 
 #### Todo:
-* [x] home on separate partition
-* [x] phone webcam
-* [x] network
-* [x] ssh
-* [x] screen tearing
-* [x] temperature monitor utility
-    * [x] test performance of GPU
-    * [x] test CPU performance
-    * [x] adjust fan speed (system)
-    * [x] adjust fan speed (bios)
-* [x] Steam
-* [x] Bluetooth
-* [ ] Blizzard
-* [ ] VM-box
 
+-   [x] home on separate partition
+-   [x] phone webcam
+-   [x] network
+-   [x] ssh
+-   [x] screen tearing
+-   [x] temperature monitor utility
+    -   [x] test performance of GPU
+    -   [x] test CPU performance
+    -   [x] adjust fan speed (system)
+    -   [x] adjust fan speed (bios)
+-   [x] Steam
+-   [x] Bluetooth
+-   [ ] Blizzard
+-   [ ] VM-box
