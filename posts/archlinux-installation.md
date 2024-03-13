@@ -13,20 +13,20 @@ The post-install process is more challenging, due to its "do it once" nature. Th
 
 ## Easy part, no brainer
 
--   Download latest iso from https://archlinux.org/
--   Burn iso on pen with https://etcher.balena.io/
--   boot from pendrive
--   Prepare one clean partition with `fdisk` or any other utility of your choice. I'm choosing whole 250gb drive. It's overkill, but large padding of free space, have drive health benefits.
--   https://wiki.archlinux.org/title/archinstall or do it manually following https://wiki.archlinux.org/title/installation_guide . With archinstall, you can save all steps, and use them later with `archinstall --config` flag.
--   For audio pipewire looks like solid solution. Don't forget about pipewire-pulse adapter in post install.
--   If you have `home` on separate partition, ignore it for now. It can be mounted in post install.
--   Finish installation.
+-   Download the latest ISO from https://archlinux.org/
+-   Burn the ISO onto a pen drive with https://etcher.balena.io/
+-   Boot from the pen drive
+-   Prepare one clean partition with `fdisk` or any other utility of your choice. I'm choosing the whole 250GB drive. It's overkill, but a large padding of free space has drive health benefits.
+-   Use https://wiki.archlinux.org/title/archinstall or do it manually following https://wiki.archlinux.org/title/installation_guide. With archinstall, you can save all steps and use them later with the `archinstall --config` flag.
+-   For audio, Pipewire looks like a solid solution. Don't forget about the pipewire-pulse adapter in post-install.
+-   If you have `home` on a separate partition, ignore it for now. It can be mounted in post-install.
+-   Finish the installation.
 
 ## Post installation
 
--   `chroot` to new system while still in live iso.
--   Install few packages. Some of the can be in aur. I like `yay` as as `pacman` wrapper with aur support.
--   Install `yay` (bin version compiled on gh-actions, you can compile it yourself if)
+-   `chroot` into the new system while still in the live ISO.
+-   Install a few packages. Some of them can be in AUR. I like `yay` as a `pacman` wrapper with AUR support.
+-   Install `yay` (bin version compiled on GH Actions, you can compile it yourself if)
 
 ```bash
 pacman -S --needed git base-devel
@@ -103,6 +103,7 @@ prettierd
 rtx
 sddm-archlinux-theme-git
 volctl
+vmware-workstation
 yay-git
 zsh-theme-powerlevel10k-git
 
@@ -229,19 +230,19 @@ zsh
 
 ```
 
-#### I have home in separate partition and cloned drive:
+#### I have a home in a separate partition and cloned drive:
 
--   Remove content of current `home` directory (small temporary backup is always good practice, for fresh install not necessary and if you know what you doing).
--   Mount partition with your `old home partition` to current one. Save it in `/ets/fstab`. For me it was just copy paste fstab from old os to new (backup with rsync FTW). Don't forgotten that uuids for recreated partitions will change. If you are using disk location (sda1, sdb1, nvme0n1, ...), they need to be connected to same sockets in motherboard. `lsblk` is your friend to check that, `sudo fdisk -l` if you need more info (including uuids), another option is `blkid`, and my favorite `ls -lha /dev/disk/by-uuid`.
+-   Remove content of the current `home` directory (a small temporary backup is always good practice. Not necessary for a fresh install and if you know what you're doing).
+-   Mount the partition with your `old home partition` to the current one. Save it in `/etc/fstab`. For me, it was just copy-pasting fstab from the old OS to the new (backup with rsync FTW). Don't forget that UUIDs for recreated partitions will change. If you are using disk location (sda1, sdb1, nvme0n1, ...), they need to be connected to the same sockets on the motherboard. `lsblk` is your friend to check that, `sudo fdisk -l` if you need more info (including UUIDs), another option is `blkid`, and my favorite `ls -lha /dev/disk/by-uuid`.
 -   If you have separate partitions for var, log, whatever, repeat that process.
 -   Enjoy your fresh install for another couple of years.
 
 #### Iriun webcam for Linux
 
-I cant justify buying crappy webcam, when I have good one in my phone.
+I can't justify buying a crappy webcam when I have a good one on my phone.
 
 ```bash
-yay iriunwebcam-bin
+yay -S iriunwebcam-bin
 
 # install and enable kernel module
 
@@ -252,16 +253,15 @@ sudo rmmod v4l2loopback; sudo modprobe v4l2loopback
 
 #### NetworkManager
 
-`networkctl` (from `systemd-networkd.service`) is perfectly fine for server configuration. For desktop experience thought, we want to use `NetworkManager` that can be used by few gui tools. Most important for me is system tray icon with network status.
+`networkctl` (from `systemd-networkd.service`) is perfectly fine for server configuration. For a desktop experience, though, we want to use `NetworkManager` that can be used by a few GUI tools. Most important for me is the system tray icon with network status.
 
 Make sure that you have installed:
 
 ```bash
-networkmanager
-network-manager-applet
+sudo pacman -S networkmanager network-manager-applet
 ```
 
-Stop and disable systemd-networkd service, then enable and start service from NetworkManager. Never run them both running in the same time.
+Stop and disable the systemd-networkd service, then enable and start the service from NetworkManager. Never run them both at the same time.
 
 ```bash
 sudo systemctl disable systemd-networkd.service
@@ -271,13 +271,13 @@ sudo systemctl enable NetworkManager.service
 sudo systemctl start NetworkManager.service
 ```
 
-Run `nm-applet` for tray icon, or `nmcli help` for more user friendly experience 😁.
+Run `nm-applet` for the tray icon, or `nmcli help` for a more user-friendly experience 😁.
 
 #### sshd
 
-Make sure that `openssh` is installed, enabled and started in systed.
+Make sure that `openssh` is installed, enabled, and started in systemd.
 
-Find `Port=22` and change to whatever is not standard.
+Find `Port 22` and change it to whatever is not standard.
 
 ```bash
 sudo nvim /etc/ssh/sshd_config
@@ -287,11 +287,11 @@ sudo systemctl restart sshd
 
 #### Solve screen tearing
 
-Install composite manager and play with vsync. My choice is `picom`, [config is in dotfiles](https://github.com/undg/.dot/blob/master/window-manager/.config/picom.conf)
+Install a composite manager and play with vsync. My choice is `picom`, [config is in dotfiles](https://github.com/undg/.dot/blob/master/window-manager/.config/picom.conf)
 
 #### Steam
 
-Enable multilib in `/etc/pacman.conf`, sync pacman and install Steam
+Enable multilib in `/etc/pacman.conf`, sync pacman, and install Steam
 
 ```bash
 sudo nvim /etc/pacman.conf
@@ -309,29 +309,12 @@ sudo pacman -S steam
 
 #### OC and performance
 
-[undg:lm_sensros setup and fixes for Gigabyte B550 AORUS AX V2](/posts/lm_sensors-fix-gigabyte-b550-aorus-ax-v2/)
+[undg: lm_sensors setup and fixes for Gigabyte B550 AORUS AX V2](/posts/lm_sensors-fix-gigabyte-b550-aorus-ax-v2/)
 
 #### Bluetooth
 
-Install `bluez` daemon, enable and start `bluetooth.service`.
+Install the `bluez` daemon, enable and start `bluetooth.service`.
 
-Install `blueman` (gui) and `bluez-utils` (cli `bluetoothctl`) for frontend.
+Install `blueman` (GUI) and `bluez-utils` (CLI `bluetoothctl`) for the frontend.
 
-If needed, enable and connect to trusted devices before Xorg: [undg:Enable bluetooth keyboard before xstart](/posts/bluetooth-auto-connect-keyboard/)
-
-#### Todo:
-
--   [x] home on separate partition
--   [x] phone webcam
--   [x] network
--   [x] ssh
--   [x] screen tearing
--   [x] temperature monitor utility
-    -   [x] test performance of GPU
-    -   [x] test CPU performance
-    -   [x] adjust fan speed (system)
-    -   [x] adjust fan speed (bios)
--   [x] Steam
--   [x] Bluetooth
--   [ ] Blizzard
--   [ ] VM-box
+If needed, enable and connect to trusted devices before Xorg: [undg: Enable Bluetooth keyboard before xstart](/posts/bluetooth-auto-connect-keyboard/)
