@@ -61,5 +61,5 @@ I'm not sure if it was auto GPU or auto OpenCL but currently I have set this to:
 - mode: OpenCL
 - GPU: Main display (Details column)
 
-![davinci-resolve manual setting for GPU](/img/davinci-manual-gpu-fix.png)
+![davinci-resolve manual setting for GPU](/img/davinci-manual-gpu-fix-thumb.png)
 
