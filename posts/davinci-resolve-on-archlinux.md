@@ -50,3 +50,16 @@ or
 ```bash
 sudo chown -R undg/opt/resolve
 ```
+
+## GPU error code: -1
+
+1. Open any project -> Preferences -> memory and GPU
+2. Set `GPU processing mode` and `GPU selection` to manual
+
+I'm not sure if it was auto GPU or auto OpenCL but currently I have set this to:
+
+- mode: OpenCL
+- GPU: Main display (Details column)
+
+![davinci-resolve manual setting for GPU](/img/davinci-manual-gpu-fix.png)
+
