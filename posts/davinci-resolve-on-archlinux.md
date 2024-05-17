@@ -65,13 +65,19 @@ sudo chown -R undg /opt/resolve # where `undg` is my username
 
 Got this problem in January 2024.
 
+Install `extra/rocm-opencl-runtime` to see second card (driver) in davinci gpu settings
+
+```bash
+sudo pacman -S rocm-opencl-runtime
+```
+
 1. Open any project -> Preferences -> memory and GPU
 2. Set `GPU processing mode` and `GPU selection` to manual
 
 I'm not sure if it was auto GPU or auto OpenCL but currently I have set this to:
 
 - mode: OpenCL
-- GPU: Main display (Details column)
+- GPU: Main display (Details column) # driver from `rocm-opencl-runtime`
 
 ![davinci-resolve manual setting for GPU](/img/davinci-manual-gpu-fix-thumb.png)
 
