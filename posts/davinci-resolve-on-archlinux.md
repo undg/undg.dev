@@ -108,7 +108,14 @@ Third solution may be use `LD_PRELOAD` local env var to force use of specific li
 LD_PRELOAD="/usr/lib64/libglib-2.0.so /usr/lib64/libgio-2.0.so /usr/lib64/libgmodule-2.0.so" /opt/resolve/bin/resolve
 ```
 
+OR
+
+```bash
+LD_PRELOAD="/usr/lib/libgio-2.0.so /usr/lib/libgmodule-2.0.so" /opt/resolve/bin/resolve
+```
+
 Related links:
+[\[SOLVED\] Issues installing DaVinci Resolve](https://bbs.archlinux.org/viewtopic.php?id=295687)
 [gentoo: \[SOLVED\] g_task_set_static_name not present in glib](https://forums.gentoo.org/viewtopic-p-8806845.html?sid=706890537aea9dbdf9507289766610d5)
 [reddit: Davinci Resolve doesn't start](https://www.reddit.com/r/archlinux/comments/1c9v09q/davinci_resolve_doesnt_start/)
 [reddit: Davinci Resolve 18 Symbol Lookup Error libgdk_pixbuf](https://www.reddit.com/r/voidlinux/comments/12g71x0/davinci_resolve_18_symbol_lookup_error_libgdk/)
