@@ -7,12 +7,18 @@ eleventyNavigation:
     order: 3
 ---
 
+I can be described as:
 * Software engineer;
 * Linux geek;
 * Open source lover;
 * Neovim fanatic;
 
-[github.com/undg](https://github.com/undg)
 
+Check my code on [github.com](https://github.com/undg)
 
-This blog template is based on [eleventy-high-performance-blog](https://www.industrialempathy.com/posts/eleventy-high-performance-blog/), which itself is based on [eleventy-base-blog](https://github.com/11ty/eleventy-base-blog).
+See my profile on [linkedin.com](https://linkedin.com/in/bartek-laskowski)
+
+Interact with me on [x.com](https://x.com/undg__)
+
+Watch me relaxing and chilling [youtube.com](https://www.youtube.com/@bartek...)
+
