@@ -21,7 +21,7 @@ Outside of work, I'm either longboarding through London’s streets or diving in
 - **GitHub:** [github.com/undg](http://github.com/undg)
 - **LinkedIn:** [linkedin.com/in/bartek-laskowski](http://linkedin.com/in/bartek-laskowski)
 - **X:** [x.com/undg__](http://x.com/undg__)
-- **YouTube (Longboarding):** [youtube.com/@bartek...](https://www.youtube.com/@bartek...)
+- **YouTube:** [youtube.com/@bartek...](https://www.youtube.com/@bartek...)
 
 Whether you're here to check out my professional journey, seek some tech advice, or just see what I'm up to, I'm glad you stopped by!
 
