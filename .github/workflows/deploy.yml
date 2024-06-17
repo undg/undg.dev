@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - run: yarn
       - run: yarn build
 
@@ -18,7 +18,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: _site
-          remote: ${{ secrets.SSH_PATH }} 
+          remote: ${{ secrets.SSH_PATH }}
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USER }}
