@@ -15,7 +15,9 @@ jobs:
       - run: yarn build
 
       - name: Copy folder content recursively to remote
-        uses: undg/github-action-scp
+        # @TODO (undg) 2024-06-17: use fork for now
+        uses: undg/github-action-scp@master
+        # uses: garygrossgarten/github-action-scp@release
         with:
           local: _site
           remote: ${{ secrets.SSH_PATH }}
