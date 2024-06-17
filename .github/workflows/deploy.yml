@@ -15,7 +15,7 @@ jobs:
       - run: yarn build
 
       - name: Copy folder content recursively to remote
-        uses: garygrossgarten/github-action-scp@release
+        uses: undg/github-action-scp@release
         with:
           local: _site
           remote: ${{ secrets.SSH_PATH }}
