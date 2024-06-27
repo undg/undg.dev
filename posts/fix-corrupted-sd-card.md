@@ -1,6 +1,6 @@
 ---
-title: "Insta360. Fix SD card [ERROR: invalid VBR checksum 0x1f918e82 (expected 0xa0fc47d0)]"
-description: Common problem when downloading files from insta360
+title: Insta360 Fix corrupted SD card
+description: Common problem when downloading files from insta360,  ERROR invalid VBR checksum 0x1f918e82 expected 0xa0fc47d0
 date: 2024-06-19
 tags: video, linux, insta360, datarecovery
     - post
