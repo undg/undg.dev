@@ -1248,6 +1248,9 @@ header p {
 
 header nav #nav {
     max-width: var(--max-width);
+    display: flex;
+    justify-content: center;
+    gap: 6rem;
 }
 
 header nav {

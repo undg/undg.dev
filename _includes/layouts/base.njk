@@ -59,7 +59,8 @@
     <header>
       <nav>
         <div id="nav">
-          <h1><a href="{{ '/' | url }}" title="Homepage">{{ metadata.title }}</a></h1>
+          <h1><a href="{{ '/' | url }}" title="Homepage">{{ metadata.homeTitle }}</a></h1>
+          <a href="https://github.com/undg">github.com/undg</a>
           {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
           {%- for entry in collections.all | eleventyNavigation %}
             <a href="{{ entry.url | url }}">{{ entry.title }}</a>
@@ -91,9 +92,12 @@
     </main>
 
     <footer>
+      <a href="https://github.com/undg">github.com/undg</a>
       <a href="/about/">{{ metadata.author.name }}</a>
     </footer>
 
     <!-- Current page: {{ page.url | url }} -->
-  </body>
+    </body>
 </html>
+
+<!-- vim: softtabstop=2 shiftwidth=2 tabstop=2 -->
