@@ -275,52 +275,55 @@ document.body.addEventListener(
     /* capture */ "true"
 )
 
-// Animate elements as document.addEventListener('DOMContentLoaded', (event) => {
-function applyFadeInStyles() {
+// Animate intersection and onLoad
+function setupFadeInStyles() {
     const style = document.createElement("style")
     style.textContent = `
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
     `
     document.head.appendChild(style)
 }
 
-function applyStylesDirectly(element, isVisible) {
-    if (isVisible) {
-        element.style.opacity = "1"
-        element.style.transform = "translateY(0)"
-    } else {
-        element.style.opacity = "0"
-        element.style.transform = "translateY(20px)"
-    }
-    element.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out"
+function animateOnScroll() {
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible")
+                } else {
+                    entry.target.classList.remove("visible")
+                }
+            })
+        },
+        {
+            threshold: 0.1, // Trigger when at least 10% of the element is visible
+        }
+    )
+    document.querySelectorAll("article > *").forEach((el) => {
+        el.classList.add("fade-in")
+        observer.observe(el)
+    })
 }
 
-const observer = new IntersectionObserver(
-    (entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("visible")
-                applyStylesDirectly(entry.target, true)
-            } else {
-                entry.target.classList.remove("visible")
-                applyStylesDirectly(entry.target, false)
-            }
-        })
-    },
-    {
-        threshold: 0.1, // Trigger when at least 10% of the element is visible
-    }
-)
+function animateHeader() {
+    const header = document.querySelector("header > h1")
 
-document.querySelectorAll("p, code").forEach((el) => {
-    el.classList.add("fade-in")
-    observer.observe(el)
+    header.classList.add("fade-in")
+    setTimeout(() => {
+        header.classList.add("visible")
+    }, 300)
+}
+
+window.addEventListener("load", function () {
+    setupFadeInStyles()
+    animateOnScroll()
+    animateHeader()
 })
