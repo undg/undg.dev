@@ -9,6 +9,8 @@
     /* --secondary-color: #fe5f55; */
     --secondary-color: var(--primary);
     --highlight-color: #ffd6ba;
+
+    --max-width: 70rem;
 }
 
 .test-dead-code-elimination-sentinel {
@@ -1244,8 +1246,14 @@ header p {
     margin-top: 0;
 }
 
+header nav #nav {
+    max-width: var(--max-width);
+}
+
 header nav {
     position: fixed;
+    display: flex;
+    justify-content: center;
     top: 0;
     left: 0;
     width: 100vw;
@@ -1288,7 +1296,7 @@ header nav label {
 }
 
 main {
-    max-width: 70rem;
+    max-width: var(--max-width);
     margin: 0 auto;
     border-top: 0.5px solid #ccc;
 }
@@ -1564,7 +1572,6 @@ h2,
 h3 {
     color: var(--secondary-color);
     transition: color 0.3s ease;
-    text-shadow: ;
 }
 
 a {
