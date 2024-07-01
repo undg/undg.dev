@@ -899,6 +899,11 @@ pre {
         Andale Mono,
         Ubuntu Mono,
         monospace;
+    border-radius: 5px;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.3),
+        0 1px 3px rgba(0, 0, 0, 0.4),
+        inset 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 pre code:not([class]) {
@@ -941,6 +946,7 @@ h4,
 h5,
 h6 {
     font-family: var(--font-family);
+    text-shadow: 2px 2px 4px rgba(255, 255, 0, 0.3);
 }
 
 h2,
@@ -952,11 +958,15 @@ h6 {
 a {
     color: #f9c412;
     text-decoration: none;
+    text-shadow: 2px 2px 4px rgba(255, 255, 0, 0.3);
+    transition: text-shadow 0.3s ease;
 }
 
-/* a:hover { */
-/*     text-decoration: underline; */
-/* } */
+a:hover {
+    text-shadow:
+        3px 3px 6px rgba(255, 255, 0, 0.5),
+        0 0 10px rgba(255, 255, 0, 0.2);
+}
 
 small {
     color: #ccc;
@@ -1554,6 +1564,7 @@ h2,
 h3 {
     color: var(--secondary-color);
     transition: color 0.3s ease;
+    text-shadow: ;
 }
 
 a {
