@@ -19,6 +19,7 @@ Outside of work, I'm either longboarding through London's streets or diving into
 
 **Connect with me:**
 - **GitHub:** [github.com/undg](http://github.com/undg)
+- **Twitch:** [twitch.tv/undg111](https://www.twitch.tv/undg111)
 - **YouTube:** [youtube.com/@bartek...](https://www.youtube.com/@bartek...)
 - **thingiverse** [thingiverse.com/undg](https://www.thingiverse.com/undg/designs)
 - **X:** [x.com/undg__](http://x.com/undg__)
