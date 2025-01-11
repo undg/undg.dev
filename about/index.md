@@ -19,11 +19,12 @@ Outside of work, I'm either longboarding through London's streets or diving into
 
 **Connect with me:**
 - **GitHub:** [github.com/undg](http://github.com/undg)
-- **Twitch:** [twitch.tv/undg111](https://www.twitch.tv/undg111)
+- **X:** [x.com/undg_dev](http://x.com/undg_dev)
+- **Twitch:** [twitch.tv/undg_live](https://www.twitch.tv/undg_live)
+- **YouTube:** [youtube.com/undg_live](https://www.youtube.com/undg_live)
+- **LinkedIn:** [linkedin.com/in/bartek-laskowski](http://linkedin.com/in/bartek-laskowski)
 - **YouTube:** [youtube.com/@bartek...](https://www.youtube.com/@bartek...)
 - **thingiverse** [thingiverse.com/undg](https://www.thingiverse.com/undg/designs)
-- **X:** [x.com/undg__](http://x.com/undg__)
-- **LinkedIn:** [linkedin.com/in/bartek-laskowski](http://linkedin.com/in/bartek-laskowski)
 
 Whether you're here to check out my professional journey, seek some tech advice, or just see what I'm up to, I'm glad you stopped by!
 
