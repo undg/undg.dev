@@ -21,7 +21,7 @@ Outside of work, I'm either longboarding through London's streets or diving into
 - **GitHub:** [github.com/undg](http://github.com/undg)
 - **X:** [x.com/undg_dev](http://x.com/undg_dev)
 - **Twitch:** [twitch.tv/undg_live](https://www.twitch.tv/undg_live)
-- **YouTube:** [youtube.com/undg_live](https://www.youtube.com/undg_live)
+- **YouTube:** [youtube.com/@undg_live](https://www.youtube.com/@undg_live)
 - **LinkedIn:** [linkedin.com/in/bartek-laskowski](http://linkedin.com/in/bartek-laskowski)
 - **YouTube:** [youtube.com/@bartek...](https://www.youtube.com/@bartek...)
 - **thingiverse** [thingiverse.com/undg](https://www.thingiverse.com/undg/designs)
