@@ -389,6 +389,7 @@ function sortTable() {
             arrow.style.position = "absolute"
             arrow.style.top = "0.75em"
             arrow.style.right = "0.25em"
+            arrow.innerText = ctaIcon
 
             header.addEventListener("click", () => {
                 let sortBy = sortedBy(table)
@@ -399,7 +400,7 @@ function sortTable() {
                 )
 
                 if (isNumber) {
-                    if (!arrow.innerText) {
+                    if (arrow.innerText === ctaIcon) {
                         table.setAttribute("data-sort", "num-desc")
                     } else if (sortBy === "none") {
                         table.setAttribute("data-sort", "num-desc")
@@ -409,7 +410,7 @@ function sortTable() {
                         table.setAttribute("data-sort", "none")
                     }
                 } else {
-                    if (!arrow.innerText) {
+                    if (arrow.innerText === ctaIcon) {
                         table.setAttribute("data-sort", "abc-desc")
                     } else if (sortBy === "none") {
                         table.setAttribute("data-sort", "abc-desc")
@@ -424,7 +425,7 @@ function sortTable() {
 
                 headers.forEach((header) => {
                     const allArrows = header.querySelector("#span-arrow")
-                    allArrows.innerText = ""
+                    allArrows.innerText = ctaIcon
                 })
 
                 if (sortBy === "num-desc") arrow.innerText = downIcon
@@ -433,7 +434,7 @@ function sortTable() {
                 if (sortBy === "num-asc") arrow.innerText = upIcon
                 if (sortBy === "abc-asc") arrow.innerText = upIcon
 
-                if (sortBy === "none") arrow.innerText = ""
+                if (sortBy === "none") arrow.innerText = ctaIcon
 
                 if (sortBy === "num-desc") {
                     sortRowsDesc(rows, colIndex)
