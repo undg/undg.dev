@@ -364,13 +364,16 @@ function sortTable() {
         const headers = table.querySelectorAll("th")
         const tbody = table.querySelector("tbody")
         const originalRows = Array.from(table.querySelectorAll("tbody tr"))
+
         table.setAttribute("data-sort", "none")
 
         headers.forEach((header, colIndex) => {
             const arrow = document.createElement("span")
+
             arrow.setAttribute("id", "span-arrow")
             header.append(arrow)
             header.style.position = "relative"
+
             arrow.style.position = "absolute"
             arrow.style.top = "0.75em"
             arrow.style.right = "0.25em"
@@ -378,7 +381,10 @@ function sortTable() {
             header.addEventListener("click", () => {
                 let sortBy = sortedBy(table)
 
-                if (sortBy === "none") {
+                console.log(!arrow.innerText)
+                if (!arrow.innerText) {
+                    table.setAttribute("data-sort", "desc")
+                } else if (sortBy === "none") {
                     table.setAttribute("data-sort", "desc")
                 } else if (sortBy === "desc") {
                     table.setAttribute("data-sort", "asc")
