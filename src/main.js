@@ -349,11 +349,19 @@ function sortRowsAsc(rows, colIndex) {
     })
 }
 
-function sortRowsAbc(rows, colIndex) {
+function sortRowsAbcDec(rows, colIndex) {
     return rows.sort((a, b) => {
         const aVal = a.cells[colIndex].textContent
         const bVal = b.cells[colIndex].textContent
         return aVal.localeCompare(bVal)
+    })
+}
+
+function sortRowsAbcAsc(rows, colIndex) {
+    return rows.sort((a, b) => {
+        const aVal = a.cells[colIndex].textContent
+        const bVal = b.cells[colIndex].textContent
+        return bVal.localeCompare(aVal)
     })
 }
 
@@ -380,18 +388,30 @@ function sortTable() {
 
             header.addEventListener("click", () => {
                 let sortBy = sortedBy(table)
+                let rows = Array.from(table.querySelectorAll("tbody tr"))
 
-                console.log(!arrow.innerText)
-                if (!arrow.innerText) {
-                    table.setAttribute("data-sort", "desc")
-                } else if (sortBy === "none") {
-                    table.setAttribute("data-sort", "desc")
-                } else if (sortBy === "desc") {
-                    table.setAttribute("data-sort", "asc")
-                } else if (sortBy === "asc") {
-                    table.setAttribute("data-sort", "abc")
-                } else if (sortBy === "abc") {
-                    table.setAttribute("data-sort", "none")
+                const isNumber = Number.isFinite(
+                    +rows[0].cells[colIndex].textContent
+                )
+
+                if (isNumber) {
+                    if (!arrow.innerText) {
+                        table.setAttribute("data-sort", "num-desc")
+                    } else if (sortBy === "none") {
+                        table.setAttribute("data-sort", "num-desc")
+                    } else if (sortBy === "num-desc") {
+                        table.setAttribute("data-sort", "num-asc")
+                    } else if (sortBy === "num-asc") {
+                        table.setAttribute("data-sort", "none")
+                    }
+                } else {
+                    if (!arrow.innerText) {
+                        table.setAttribute("data-sort", "abc-desc")
+                    } else if (sortBy === "abc-desc") {
+                        table.setAttribute("data-sort", "abc-asc")
+                    } else if (sortBy === "abc-asc") {
+                        table.setAttribute("data-sort", "none")
+                    }
                 }
 
                 sortBy = sortedBy(table)
@@ -401,18 +421,20 @@ function sortTable() {
                     allArrows.innerText = ""
                 })
 
-                if (sortBy === "asc") arrow.innerText = "⬆"
-                if (sortBy === "desc") arrow.innerText = "⬇"
-                if (sortBy === "abc") arrow.innerText = "🔤"
+                if (sortBy === "num-desc") arrow.innerText = "⬇"
+                if (sortBy === "abc-desc") arrow.innerText = "⬇"
 
-                let rows = Array.from(table.querySelectorAll("tbody tr"))
+                if (sortBy === "num-asc") arrow.innerText = "⬆"
+                if (sortBy === "abc-asc") arrow.innerText = "⬆"
 
-                if (sortBy === "desc") {
+                if (sortBy === "num-desc") {
                     sortRowsDesc(rows, colIndex)
-                } else if (sortBy === "asc") {
+                } else if (sortBy === "num-asc") {
                     sortRowsAsc(rows, colIndex)
-                } else if (sortBy === "abc") {
-                    sortRowsAbc(rows, colIndex)
+                } else if (sortBy === "abc-desc") {
+                    sortRowsAbcDec(rows, colIndex)
+                } else if (sortBy === "abc-asc") {
+                    sortRowsAbcAsc(rows, colIndex)
                 } else {
                     rows = originalRows
                 }
