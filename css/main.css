@@ -873,7 +873,7 @@ th {
 
 td,
 th {
-    border-bottom: 1px solid #595959;
+    border: 1px solid #595959;
     overflow: auto;
     padding: 0.75em;
     text-align: left;
@@ -881,7 +881,16 @@ th {
 }
 
 thead th {
-    border-bottom: 1px solid #f9c412;
+    border-bottom: 4px solid #f9c412;
+    border-top: 4px solid #f9c412;
+}
+
+thead th:first-of-type {
+    border-left: 4px solid #f9c412;
+}
+
+thead th:last-of-type {
+    border-right: 4px solid #f9c412;
 }
 
 table {
