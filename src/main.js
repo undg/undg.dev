@@ -365,6 +365,10 @@ function sortRowsAbcAsc(rows, colIndex) {
     })
 }
 
+const ctaIcon = "☰"
+const upIcon = "⬆"
+const downIcon = "⬇"
+
 // Sorting tables in articles by column
 function sortTable() {
     const tables = document.querySelectorAll("article table")
@@ -423,11 +427,11 @@ function sortTable() {
                     allArrows.innerText = ""
                 })
 
-                if (sortBy === "num-desc") arrow.innerText = "⬇"
-                if (sortBy === "abc-desc") arrow.innerText = "⬇"
+                if (sortBy === "num-desc") arrow.innerText = downIcon
+                if (sortBy === "abc-desc") arrow.innerText = downIcon
 
-                if (sortBy === "num-asc") arrow.innerText = "⬆"
-                if (sortBy === "abc-asc") arrow.innerText = "⬆"
+                if (sortBy === "num-asc") arrow.innerText = upIcon
+                if (sortBy === "abc-asc") arrow.innerText = upIcon
 
                 if (sortBy === "none") arrow.innerText = ""
 
