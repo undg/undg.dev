@@ -363,22 +363,31 @@ function sortTable() {
     tables.forEach((table) => {
         const headers = table.querySelectorAll("th")
         const tbody = table.querySelector("tbody")
+        const originalRows = Array.from(table.querySelectorAll("tbody tr"))
+        table.setAttribute("data-sort", "none")
 
         headers.forEach((header, colIndex) => {
             const arrow = document.createElement("span")
             arrow.setAttribute("id", "span-arrow")
             header.append(arrow)
+            header.style.position = "relative"
+            arrow.style.position = "absolute"
+            arrow.style.top = "0.75em"
+            arrow.style.right = "0.25em"
 
             header.addEventListener("click", () => {
                 let sortBy = sortedBy(table)
 
-                if (sortBy === "desc") {
+                if (sortBy === "none") {
+                    table.setAttribute("data-sort", "desc")
+                } else if (sortBy === "desc") {
                     table.setAttribute("data-sort", "asc")
                 } else if (sortBy === "asc") {
                     table.setAttribute("data-sort", "abc")
-                } else {
-                    table.setAttribute("data-sort", "desc")
+                } else if (sortBy === "abc") {
+                    table.setAttribute("data-sort", "none")
                 }
+
                 sortBy = sortedBy(table)
 
                 headers.forEach((header) => {
@@ -392,17 +401,14 @@ function sortTable() {
 
                 let rows = Array.from(table.querySelectorAll("tbody tr"))
 
-                console.log(
-                    sortBy === "desc",
-                    sortBy === "asc",
-                    sortBy === "abc"
-                )
                 if (sortBy === "desc") {
                     sortRowsDesc(rows, colIndex)
                 } else if (sortBy === "asc") {
                     sortRowsAsc(rows, colIndex)
                 } else if (sortBy === "abc") {
                     sortRowsAbc(rows, colIndex)
+                } else {
+                    rows = originalRows
                 }
 
                 rows.forEach((row) => tbody.appendChild(row))

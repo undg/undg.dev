@@ -875,7 +875,7 @@ td,
 th {
     border: 1px solid #595959;
     overflow: auto;
-    padding: 0.75em;
+    padding: 0.75em 1.25em;
     text-align: left;
     vertical-align: top;
 }
@@ -883,6 +883,7 @@ th {
 thead th {
     border-bottom: 4px solid #f9c412;
     border-top: 4px solid #f9c412;
+    cursor: pointer;
 }
 
 thead th:first-of-type {
