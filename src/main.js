@@ -327,3 +327,88 @@ window.addEventListener("load", function () {
     animateOnScroll()
     animateHeader()
 })
+
+function sortedBy(table) {
+    const s = table.getAttribute("data-sort")
+    return s
+}
+
+function sortRowsDesc(rows, colIndex) {
+    return rows.sort((a, b) => {
+        const aVal = +a.cells[colIndex].textContent
+        const bVal = +b.cells[colIndex].textContent
+        return aVal - bVal
+    })
+}
+
+function sortRowsAsc(rows, colIndex) {
+    return rows.sort((a, b) => {
+        const aVal = +a.cells[colIndex].textContent
+        const bVal = +b.cells[colIndex].textContent
+        return bVal - aVal
+    })
+}
+
+function sortRowsAbc(rows, colIndex) {
+    return rows.sort((a, b) => {
+        const aVal = a.cells[colIndex].textContent
+        const bVal = b.cells[colIndex].textContent
+        return aVal.localeCompare(bVal)
+    })
+}
+
+// Sorting tables in articles by column
+function sortTable() {
+    const tables = document.querySelectorAll("article table")
+    tables.forEach((table) => {
+        const headers = table.querySelectorAll("th")
+        const tbody = table.querySelector("tbody")
+
+        headers.forEach((header, colIndex) => {
+            const arrow = document.createElement("span")
+            arrow.setAttribute("id", "span-arrow")
+            header.append(arrow)
+
+            header.addEventListener("click", () => {
+                let sortBy = sortedBy(table)
+
+                if (sortBy === "desc") {
+                    table.setAttribute("data-sort", "asc")
+                } else if (sortBy === "asc") {
+                    table.setAttribute("data-sort", "abc")
+                } else {
+                    table.setAttribute("data-sort", "desc")
+                }
+                sortBy = sortedBy(table)
+
+                headers.forEach((header) => {
+                    const allArrows = header.querySelector("#span-arrow")
+                    allArrows.innerText = ""
+                })
+
+                if (sortBy === "asc") arrow.innerText = "⬆"
+                if (sortBy === "desc") arrow.innerText = "⬇"
+                if (sortBy === "abc") arrow.innerText = "🔤"
+
+                let rows = Array.from(table.querySelectorAll("tbody tr"))
+
+                console.log(
+                    sortBy === "desc",
+                    sortBy === "asc",
+                    sortBy === "abc"
+                )
+                if (sortBy === "desc") {
+                    sortRowsDesc(rows, colIndex)
+                } else if (sortBy === "asc") {
+                    sortRowsAsc(rows, colIndex)
+                } else if (sortBy === "abc") {
+                    sortRowsAbc(rows, colIndex)
+                }
+
+                rows.forEach((row) => tbody.appendChild(row))
+            })
+        })
+    })
+}
+
+sortTable()
