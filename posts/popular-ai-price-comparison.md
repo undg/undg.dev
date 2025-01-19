@@ -11,7 +11,7 @@ layout: layouts/post.njk
 This table represent prices for popular AI models as for today 19 Jan 2025.
 Prices in USD per 1M  tokens.
 
-| Model | Input (/1M) | Output (/1M) | Total  |
+| Model | Input ($/1M) | Output ($/1M) | Total ($)  |
 |--------|--------------|---------------|--------|
 | Gemini 1.5 Flash-8b (<128k) | 0.0375 | 0.15 | 0.1875 |
 | Gemini 1.5 Flash-8b (>128k) | 0.075 | 0.30 | 0.375 |
