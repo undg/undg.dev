@@ -328,50 +328,29 @@ window.addEventListener("load", function () {
     animateHeader()
 })
 
-function sortedBy(table) {
-    const s = table.getAttribute("data-sort")
-    return s
-}
-
-function sortRowsDesc(rows, colIndex) {
-    return rows.sort((a, b) => {
-        const aVal = +a.cells[colIndex].textContent
-        const bVal = +b.cells[colIndex].textContent
-        return aVal - bVal
-    })
-}
-
-function sortRowsAsc(rows, colIndex) {
-    return rows.sort((a, b) => {
-        const aVal = +a.cells[colIndex].textContent
-        const bVal = +b.cells[colIndex].textContent
-        return bVal - aVal
-    })
-}
-
-function sortRowsAbcDec(rows, colIndex) {
-    return rows.sort((a, b) => {
-        const aVal = a.cells[colIndex].textContent
-        const bVal = b.cells[colIndex].textContent
-        return aVal.localeCompare(bVal)
-    })
-}
-
-function sortRowsAbcAsc(rows, colIndex) {
-    return rows.sort((a, b) => {
-        const aVal = a.cells[colIndex].textContent
-        const bVal = b.cells[colIndex].textContent
-        return bVal.localeCompare(aVal)
-    })
-}
-
-const ctaIcon = "☰"
-const upIcon = "⬆"
-const downIcon = "⬇"
-
-// Sorting tables in articles by column
+/**
+ * Table Sorting System
+ *
+ * Adds interactive sorting to all tables within article elements.
+ * Click column headers to sort - supports both numeric and text data.
+ * Maintains original table order and allows toggling between:
+ * - Numeric columns: none -> descending -> ascending -> none
+ * - Text columns: none -> descending -> ascending -> none
+ *
+ * Sort direction indicated by icons:
+ * ☰ - default/unsorted
+ * ⬆ - ascending order
+ * ⬇ - descending order
+ *
+ * @requires DOM with <article><table> elements
+ */
 function sortTable() {
     const tables = document.querySelectorAll("article table")
+
+    const ctaIcon = "☰"
+    const upIcon = "⬆"
+    const downIcon = "⬇"
+
     tables.forEach((table) => {
         const headers = table.querySelectorAll("th")
         const tbody = table.querySelector("tbody")
@@ -451,6 +430,43 @@ function sortTable() {
                 rows.forEach((row) => tbody.appendChild(row))
             })
         })
+    })
+}
+
+function sortedBy(table) {
+    const s = table.getAttribute("data-sort")
+    return s
+}
+
+function sortRowsDesc(rows, colIndex) {
+    return rows.sort((a, b) => {
+        const aVal = +a.cells[colIndex].textContent
+        const bVal = +b.cells[colIndex].textContent
+        return aVal - bVal
+    })
+}
+
+function sortRowsAsc(rows, colIndex) {
+    return rows.sort((a, b) => {
+        const aVal = +a.cells[colIndex].textContent
+        const bVal = +b.cells[colIndex].textContent
+        return bVal - aVal
+    })
+}
+
+function sortRowsAbcDec(rows, colIndex) {
+    return rows.sort((a, b) => {
+        const aVal = a.cells[colIndex].textContent
+        const bVal = b.cells[colIndex].textContent
+        return aVal.localeCompare(bVal)
+    })
+}
+
+function sortRowsAbcAsc(rows, colIndex) {
+    return rows.sort((a, b) => {
+        const aVal = a.cells[colIndex].textContent
+        const bVal = b.cells[colIndex].textContent
+        return bVal.localeCompare(aVal)
     })
 }
 
