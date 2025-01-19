@@ -407,10 +407,12 @@ function sortTable() {
                 } else {
                     if (!arrow.innerText) {
                         table.setAttribute("data-sort", "abc-desc")
+                    } else if (sortBy === "none") {
+                        table.setAttribute("data-sort", "abc-desc")
                     } else if (sortBy === "abc-desc") {
                         table.setAttribute("data-sort", "abc-asc")
                     } else if (sortBy === "abc-asc") {
-                        table.setAttribute("data-sort", "none")
+                        table.setAttribute("data-sort", "abc-none")
                     }
                 }
 
@@ -426,6 +428,8 @@ function sortTable() {
 
                 if (sortBy === "num-asc") arrow.innerText = "⬆"
                 if (sortBy === "abc-asc") arrow.innerText = "⬆"
+
+                if (sortBy === "none") arrow.innerText = ""
 
                 if (sortBy === "num-desc") {
                     sortRowsDesc(rows, colIndex)
