@@ -68,7 +68,7 @@ export default function useStore() {
 
 This is code snippet that will test if hook was called.
 Most important part is to create `fullReset` mock at the top of the file. Otherwise, vitest will lose reference to our mock and reinitialise. We don't want it. Method need to be instantiated only once. I've commented this part with `IMPORTATNT`
-With `vi.mock` we can mock implementation of our hook, and assign to it method `fullReset`. Don't forget to use path to you custom hook that you want to replace with this mock.
+With `vi.mock` we can mock implementation of our hook, and assign to it method `fullReset`. Don't forget to use path to your custom hook that you want to replace with this mock.
 Withing `beforeEach` we are doing cleanup. You don't want to keep your mock forever, you want to restore it to original form.
 
 Finally you can test it in very straightforward way. Render component, click the button and check if your mock was called.
