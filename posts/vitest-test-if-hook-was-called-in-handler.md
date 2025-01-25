@@ -82,7 +82,6 @@ import userEvent from '@testing-library/user-event'
 import { beforeEach, vi } from 'vitest'
 
 import MyComponent from './my-component.tsx'
-
 import { useStore } from './use-store'
 
 // Mock must be at top level, to preserve reference: IMPORTANT!!!
@@ -115,6 +114,6 @@ describe(`Reset store after clicking button`, () => {
 ```
 
 
-And that's it! This code snipped can be useful in many scenarios. You may not want test mocked implementation, but removing implementation by mocking is perfectly fine and desirable.
+And that's it! This code snippet can be useful in many scenarios. You don't want to test hook implementation this way, but mocking it is perfectly fine and desirable.
 
 
