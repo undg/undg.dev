@@ -37,7 +37,7 @@ export default function MyComponent() {
     const handleResetAll = () => {
         store.fullReset()
     }
-    return <Button onClick={handleResetAll} data-testid='reset-button'>Reset all</Button>
+    return <button onClick={handleResetAll} data-testid='reset-button'>Reset all</button>
 }
 ```
 
@@ -85,12 +85,12 @@ import MyComponent from './my-component.tsx'
 import { useStore } from './use-store'
 
 // Mock must be at top level, to preserve reference: IMPORTANT!!!
-const fullReset = vi.fn()
+const mockFullReset = vi.fn()
 
 describe(`Reset store after clicking button`, () => {
 	vi.mock('./use-store', () => ({ // path to file with our hook
 		useStore: () => ({
-			fullReset,
+            fullReset: mockFullReset,
 		}),
 	}))
 
@@ -102,13 +102,13 @@ describe(`Reset store after clicking button`, () => {
 		render(<MyComponent />)
 		await userEvent.click(screen.getByTestId('reset-button'))
 		const store = useStore() // optional, check "alternative test implementation" bellow
-		expect(store.fullReset).toBeCalled()
+		expect(store.mockFullReset).toBeCalled()
 	})
 
 	it('calls reset functions when reset button clicked (alternative test implementation)', async () => {
 		render(<MyComponent />)
 		await userEvent.click(screen.getByTestId('reset-button'))
-		expect(fullReset).toBeCalled()
+		expect(mockFullReset).toBeCalled()
 	})
 })
 ```
