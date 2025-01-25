@@ -23,13 +23,13 @@ In this use case I'll show you how to test if hook was called inside component.
 
 ## Component and Hook
 
-Our MVP example have 3 files. `use-store.ts`, `my-component.tsx` and `my-component.test.tsx`.
+Our MVP example has 3 files. `use-store.ts`, `my-component.tsx` and `my-component.test.tsx`.
 I'm using `vitest` with `@testing-library/react` and `@testing-library/user-event`
 
 
 ### my-component.tsx
 
-This is our minimal component. All it do is showing a button, that's trigger `fullReset` method from `useStore()` hook after it's clicked.
+This is our minimal component. All it does is showing a button, that triggers `fullReset` method from `useStore()` hook after it's clicked.
 
 ```typescript
 export default function MyComponent() {
@@ -43,7 +43,7 @@ export default function MyComponent() {
 
 ### use-store.ts
 
-Implementation of our custom hook is not as important. We only testing if hook was called.
+Implementation of our custom hook is not as important. We are only testing if hook was called.
 
 ```typescript
 import { useState } from 'react'
@@ -67,11 +67,11 @@ export default function useStore() {
 ## Testing
 
 This is code snippet that will test if hook was called.
-Most important part is to create `fullReset` mock at the top of the file. Other way, vitest will loose reference to our mock and reinitialise. We don't want it. Method need to be instantiated only once. I've commented this part with `IMPORTATNT`
+Most important part is to create `fullReset` mock at the top of the file. Otherwise, vitest will lose reference to our mock and reinitialise. We don't want it. Method need to be instantiated only once. I've commented this part with `IMPORTATNT`
 With `vi.mock` we can mock implementation of our hook, and assign to it method `fullReset`. Don't forget to use path to you custom hook that you want to replace with this mock.
 Withing `beforeEach` we are doing cleanup. You don't want to keep your mock forever, you want to restore it to original form.
 
-Finally you can test it in very strait forward way. Render component, click the button and check if your mock was called.
+Finally you can test it in very straightforward way. Render component, click the button and check if your mock was called.
 You can initialise original hook (first example), because it's mocked anyway, or you can test against mock (second example). I prefer first one, it's bit more explicit and testing if hook was mocked properly.
 
 ### my-component.test.tsx
