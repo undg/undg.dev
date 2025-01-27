@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      # - uses: actions/checkout@v4
+      # - run: yarn
+      # - run: yarn build
 
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
 
-      - run: yarn
-      - run: yarn build
 
       - name: rsync stuff to the thing
         env:
