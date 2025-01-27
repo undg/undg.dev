@@ -25,13 +25,9 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
           SSH_PATH: ${{ secrets.SSH_PATH }}
-
         run: |
-          echo "SSH_PATH: $SSH_PATH"
-          echo "SSH_PASS: $SSH_PASS"
-          echo "SSH_HOST: $SSH_HOST"
-          echo "SSH_USER: $SSH_USER"
-          echo "SSH_PORT: $SSH_PORT"
+          mkdir -p ~/.ssh
+          ssh-keyscan -p $SSH_PORT $SSH_HOST >> ~/.ssh/known_hosts
           sshpass -p "$SSH_PASS" rsync -e "ssh -p $SSH_PORT" -avz --progress _site/ $SSH_USER@$SSH_HOST:$SSH_PATH
 
       # - name: copy file via ssh password
