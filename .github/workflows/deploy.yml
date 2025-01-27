@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
 
       - run: yarn
       - run: yarn build
@@ -26,7 +26,13 @@ jobs:
           SSH_PORT: ${{ secrets.SSH_PORT }}
           SSH_PATH: ${{ secrets.SSH_PATH }}
 
-        run: sshpass -p "$SSH_PASS" rsync -e "ssh -p $SSH_PORT" -avz --progress _site/ $SSH_USER@$SSH_HOST:$SSH_PATH
+        run: |
+          echo SSH_PATH: $SSH_PATH
+          echo SSH_PASS: $SSH_PASS
+          echo SSH_HOST: $SSH_HOST
+          echo SSH_USER: $SSH_USER
+          echo SSH_PORT: $SSH_PORT
+          sshpass -p "$SSH_PASS" rsync -e "ssh -p $SSH_PORT" -avz --progress _site/ $SSH_USER@$SSH_HOST:$SSH_PATH
 
       # - name: copy file via ssh password
       #   uses: appleboy/scp-action@v0.1.7
