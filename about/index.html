@@ -100,15 +100,13 @@ templateClass: tmpl-post
         .project-card .project-title {
             font-size: 1.5em;
             margin: 0;
-        }
-
-        .project-card .cta__wrap {
-            height: 100px;
+            display: flex;
+            justify-content: center;
         }
 
         .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(12ch, 1fr));
             gap: 10px;
             margin-top: 15px;
         }
@@ -227,7 +225,9 @@ templateClass: tmpl-post
             <div class="project-grid">
                 <div class="project-card">
                     <img src="/img/about/odeon.webp" alt="Project odeon" />
-                    <h3 class="project-title">Odeon.co.uk</h3>
+                    <h3 class="project-title">
+                        <a href="https://www.odeon.co.uk/"> Odeon.co.uk </a>
+                    </h3>
                     <div>
                         <p>One of the biggest cinemas in the UK</p>
                         <p>
@@ -242,14 +242,14 @@ templateClass: tmpl-post
                         <span class="tech-tag">Azure</span>
                         <span class="tech-tag">scss</span>
                     </div>
-                    <div class="cta__wrap">
-                        <a href="https://www.odeon.co.uk/" class="cta">View Project</a>
-                    </div>
+                    <div class="cta__wrap"></div>
                 </div>
 
                 <div class="project-card">
                     <img src="/img/about/curzon.webp" alt="Project curzon" />
-                    <h3 class="project-title">Curzon.com</h3>
+                    <h3 class="project-title">
+                        <a href="https://www.curzon.com/"> Curzon.com </a>
+                    </h3>
                     <div>
                         <p>One of the biggest cinemas in the UK</p>
                         <p>
@@ -265,14 +265,16 @@ templateClass: tmpl-post
                         <span class="tech-tag">Mocha/Chai</span>
                         <span class="tech-tag">scss</span>
                     </div>
-                    <div class="cta__wrap">
-                        <a href="https://www.curzon.com/" class="cta">View Project</a>
-                    </div>
+                    <div class="cta__wrap"></div>
                 </div>
 
                 <div class="project-card">
                     <img src="/img/about/premierinn.webp" alt="Project premierinn" />
-                    <h3 class="project-title">Premierinn.com</h3>
+                    <h3 class="project-title">
+                        <a href="https://www.premierinn.com/">
+                            Premierinn.com
+                        </a>
+                    </h3>
                     <div>
                         <p>
                             Refactored payment microservice from Angular to
@@ -286,14 +288,14 @@ templateClass: tmpl-post
                         <span class="tech-tag">TypeScript</span>
                         <span class="tech-tag">CSS in JS</span>
                     </div>
-                    <div class="cta__wrap">
-                        <a href="https://www.premierinn.com/" class="cta">View Project</a>
-                    </div>
+                    <div class="cta__wrap"></div>
                 </div>
 
                 <div class="project-card">
                     <img src="/img/about/arahi.webp" alt="Project 3" />
-                    <h3 class="project-title">Arahi</h3>
+                    <h3 class="project-title">
+                        <a href="https://arahi.com/"> Arahi </a>
+                    </h3>
                     <div>
                         <p>
                             Laying foundations for business analysis
@@ -307,14 +309,16 @@ templateClass: tmpl-post
                         <span class="tech-tag">Tailwind</span>
                         <span class="tech-tag">TypeScript</span>
                     </div>
-                    <div class="cta__wrap">
-                        <a href="https://arahi.com/" class="cta">View Project</a>
-                    </div>
+                    <div class="cta__wrap"></div>
                 </div>
 
                 <div class="project-card">
                     <img src="/img/about/gov-design-system.webp" alt="Project gov.uk" />
-                    <h3 class="project-title">Child benefit form</h3>
+                    <h3 class="project-title">
+                        <a href="https://design-system.service.gov.uk/get-started/">
+                            Child benefit form
+                        </a>
+                    </h3>
                     <div>
                         <p>
                             Created POC for GOV.UK to test Pega platform
@@ -328,18 +332,20 @@ templateClass: tmpl-post
                     <div class="tech-stack">
                         <span class="tech-tag">React</span>
                         <span class="tech-tag">Pega</span>
-                        <span class="tech-tag">gov-design-system</span>
+                        <span class="tech-tag">GDS</span>
                         <span class="tech-tag">css</span>
                         <span class="tech-tag">TypeScript</span>
                     </div>
-                    <div class="cta__wrap">
-                        <a href="https://design-system.service.gov.uk/get-started/" class="cta">View Project</a>
-                    </div>
+                    <div class="cta__wrap"></div>
                 </div>
 
                 <div class="project-card">
                     <img src="/img/about/sainsbury-archive.webp" alt="Project sainsbury-archive" />
-                    <h3 class="project-title">Sainsbury-archive.co.uk</h3>
+                    <h3 class="project-title">
+                        <a href="https://www.sainsburyarchive.org.uk/">
+                            Sainsburyarchive.org.uk
+                        </a>
+                    </h3>
                     <div>
                         <p>
                             Created POC for GOV.UK to test Pega platform
@@ -358,14 +364,14 @@ templateClass: tmpl-post
                         <span class="tech-tag">Apache</span>
                         <span class="tech-tag">PHP</span>
                     </div>
-                    <div class="cta__wrap">
-                        <a href="https://Sainsbury-archive.co.uk" class="cta">View Project</a>
-                    </div>
+                    <div class="cta__wrap"></div>
                 </div>
 
                 <div class="project-card">
                     <img src="/img/about/pulse-remote.webp" alt="Project 5" />
-                    <h3 class="project-title">PR-web</h3>
+                    <h3 class="project-title">
+                        <a href="https://github.com/undg/pr-web"> PR-web</a>
+                    </h3>
                     <div>
                         <p>Audio remote control. Web app.</p>
                     </div>
@@ -377,14 +383,17 @@ templateClass: tmpl-post
                         <span class="tech-tag">Web socket's</span>
                     </div>
 
-                    <div class="cta__wrap">
-                        <a href="https://github.com/undg/pr-web" class="cta">View Project</a>
-                    </div>
+                    <div class="cta__wrap"></div>
                 </div>
 
                 <div class="project-card">
                     <img src="/img/about/autorotate.webp" alt="Project 6" />
-                    <h3 class="project-title">Autorotate</h3>
+
+                    <h3 class="project-title">
+                        <a href="https://github.com/undg/autorotate">
+                            Autorotate
+                        </a>
+                    </h3>
                     <div>
                         <p>Linux utility for 2in1 laptops.</p>
                     </div>
@@ -394,9 +403,7 @@ templateClass: tmpl-post
                         <span class="tech-tag">Makefile</span>
                         <span class="tech-tag">CI/CD</span>
                     </div>
-                    <div class="cta__wrap">
-                        <a href="https://github.com/undg/autorotate" class="cta">View Project</a>
-                    </div>
+                    <div class="cta__wrap"></div>
                 </div>
             </div>
         </div>
@@ -404,25 +411,3 @@ templateClass: tmpl-post
 </body>
 
 </html>
-
-<!--
-Hi, I'm Bartek 👋
-
-I'm a seasoned Frontend developer with over a decade of experience building web applications. My focus is on React/TypeScript ecosystem, but I'm comfortable with various tech stacks and paradigms.
-
-I believe in clean, maintainable code that's pleasant to work with. Large systems are built from small, modular blocks - and that's how I approach development. I enjoy writing tests and creating efficient, practical solutions.
-
-Currently exploring AI/ML space, building tools and applications that combine modern Frontend with various AI capabilities. Check my YouTube channel where I stream some of my development sessions.
-
-I'm passionate about Linux and terminal-based workflows. Good tools and automation are essential for productive development.
-
-Recent tech stack:
-- TypeScript, React, Next.js
-- Node.js, Python, Go
-- Testing (Vitest, Jest)
-- AI/ML models and frameworks
-- Linux/Shell scripting
-
-Check my projects on GitHub, or let's have a chat about your next project!
-
- -->
