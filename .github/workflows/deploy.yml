@@ -11,29 +11,29 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       - run: yarn
       - run: yarn build
 
-      # - name: copy file via ssh password
-      #   uses: appleboy/scp-action@v0.1.7
-      #   with:
-      #     host: ${{ secrets.SSH_HOST }}
-      #     username: ${{ secrets.SSH_USER }}
-      #     password: ${{ secrets.SSH_PWD }}
-      #     port: ${{ secrets.SSH_PORT }}
-      #     source: "_site"
-      #     target: ${{ secrets.SSH_PATH }}
-
-      - name: Copy folder content recursively to remote
-        # @TODO (undg) 2024-06-17: use fork for now
-        # uses: undg/github-action-scp@master
-        uses: garygrossgarten/github-action-scp@release
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.7
         with:
-          local: _site
-          remote: ${{ secrets.SSH_PATH }}
           host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PWD }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "_site"
+          target: ${{ secrets.SSH_PATH }}
+
+      # - name: Copy folder content recursively to remote
+      #   # @TODO (undg) 2024-06-17: use fork for now
+      #   # uses: undg/github-action-scp@master
+      #   uses: garygrossgarten/github-action-scp@release
+      #   with:
+      #     local: _site
+      #     remote: ${{ secrets.SSH_PATH }}
+      #     host: ${{ secrets.SSH_HOST }}
+      #     port: ${{ secrets.SSH_PORT }}
+      #     username: ${{ secrets.SSH_USER }}
+      #     password: ${{ secrets.SSH_PWD }}
