@@ -1,3 +1,7 @@
+---
+#layout: layouts/about.njk
+templateClass: tmpl-post
+---
 <!doctype html>
 <html lang="en"
     domain="{{ metadata.domain }}"
@@ -56,7 +60,7 @@
     <!-- css is inserted by optimize-html custom plugin -->
   </head>
   <body>
-    <header>
+    <header style="padding: unset;">
       <nav>
         <div id="nav">
           <h1><a href="{{ '/' | url }}" title="Homepage">{{ metadata.homeTitle }}</a></h1>
@@ -67,17 +71,7 @@
           {%- endfor %}
             <a href="/about/">About</a>
         </div>
-        <div id="reading-progress" aria-hidden="true"></div>
       </nav>
-      <h1>{{ title }}</h1>
-      {% block extraArticleHeader %}{% endblock %}
-      <dialog id="message"></dialog>
-      {% if googleanalytics %}
-      <noscript>
-        <img src="/.netlify/functions/ga?v=1&_v=j83&t=pageview&dr=https%3A%2F%2Fno-script.com&_s=1&dh={{ metadata.domain | encodeURIComponent }}&dp={{ page.url | encodeURIComponent }}&ul=en-us&de=UTF-8&dt={{title|encodeURIComponent}}&tid={{googleanalytics}}" width="1" height="1"
-        style="display:none" alt="">
-      </noscript>
-      {% endif %}
     </header>
 
     <main>
@@ -85,10 +79,6 @@
         {% block article %}
           {{ content | safe }}
         {% endblock %}
-
-        {% if page.url.indexOf("/posts/") > -1 %}
-          <p>Published <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></p>
-        {% endif %}
       </article>
     </main>
 
@@ -97,8 +87,32 @@
       <a href="/about/">{{ metadata.author.name }}</a>
     </footer>
 
-    <!-- Current page: {{ page.url | url }} -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ title }}",
+  "image": [],
+  "author": "{{ metadata.author.name }}",
+  "genre": "{{ metadata.genre }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ metadata.publisher.name }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ '/img/favicon/favicon-192x192.png' | addHash }}"
+    }
+  },
+  "url": "{{ metadata.url }}{{ canonicalUrl or page.url }}",
+  "mainEntityOfPage": "{{ metadata.url }}{{ canonicalUrl or page.url }}",
+  "datePublished": "{{ page.date | htmlDateString }}",
+  "dateModified": "{{ page.inputPath | lastModifiedDate  | htmlDateString }}",
+  "description": "{{ content | striptags | truncate(140) }}"
+}
+</script>
     </body>
 </html>
 
 <!-- vim: softtabstop=2 shiftwidth=2 tabstop=2 -->
+

@@ -1,0 +1,417 @@
+---
+layout: layouts/about.njk
+title: Bartek Laskowski
+templateClass: tmpl-post
+---
+
+<html>
+
+<head>
+    <style>
+        :root {
+            --accent: #00ff9d;
+            --dark: #1a1a1a;
+            --white: #ffffff;
+            --bg1: #1a1a1a;
+            --bg2: #2a2a2a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            /* margin: 0; */
+            /* font-family: 'Inter', sans-serif; */
+            /* background: var(--dark); */
+            /* color: #fff; */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(45deg, #1a1a1a 0%, #2a2a2a 100%);
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin: 0;
+            background: linear-gradient(45deg, var(--accent), #00c3ff);
+            -webkit-background-clip: text;
+            /* -webkit-text-fill-color: transparent; */
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .hero .me {
+            float: right;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px #0003;
+            margin: 0 0 1rem 1rem;
+            max-width: 300px;
+        }
+
+        .hero .me:hover {
+            transform: scale(1.05);
+            transition: transform 0.2s ease;
+        }
+
+
+        .projects {
+            padding: 100px 0;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .project-card {
+            display: grid;
+            grid-template-rows: min-content min-content auto auto;
+            background: linear-gradient(45deg, #1a1a1a 0%, #2a2a2a 100%);
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .project-card .project-title {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .project-card .cta__wrap {
+            height: 100px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            background: var(--primary-dark);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 15px;
+            height: 32px;
+        }
+
+        .cta__wrap {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .cta {
+            margin: auto;
+            display: inline-block;
+            background: var(--primary);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            color: var(--dark);
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        .cta:hover {
+            transform: scale(1.05);
+
+        }
+
+        .cta:hover:after {
+            content: unset;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .lightbox img {
+            max-height: 90vh;
+            max-width: 90vw;
+            object-fit: contain;
+        }
+
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <section class="hero">
+        <div class="container">
+            <h1>Bartek Laskowski</h1>
+
+            <img class="me" src="/img/about/me.jpg" />
+
+            <p>
+                Hi, I'm Bartek - a seasoned TypeScript developer with strong
+                Frontend foundations. I specialize in React ecosystem, but
+                I'm comfortable with any modern web stack.
+            </p>
+
+            <p>
+                Beyond Frontend, I work with Node.js and dabble in Python
+                and Go. I enjoy building tools I use daily - from audio
+                controls to multi-agent AI systems.
+            </p>
+
+            <p>
+                Linux is my daily driver - terminal and its tools are
+                essential part of my workflow. Recently, I've been diving
+                deep into AI, exploring agent orchestration and
+                chain-of-thought systems.
+            </p>
+
+            <div class="cta__wrap">
+                <a href="#projects" class="cta">View My Work</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="social" id="social">
+    </section>
+
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2>Featured Projects</h2>
+
+            <div class="project-grid">
+                <div class="project-card">
+                    <img src="/img/about/odeon.webp" alt="Project odeon" />
+                    <h3 class="project-title">Odeon.co.uk</h3>
+                    <div>
+                        <p>One of the biggest cinemas in the UK</p>
+                        <p>
+                            Implemented critical components like user page
+                            or booking flow
+                        </p>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Umbraco</span>
+                        <span class="tech-tag">Azure</span>
+                        <span class="tech-tag">scss</span>
+                    </div>
+                    <div class="cta__wrap">
+                        <a href="https://www.odeon.co.uk/" class="cta">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="/img/about/curzon.webp" alt="Project curzon" />
+                    <h3 class="project-title">Curzon.com</h3>
+                    <div>
+                        <p>One of the biggest cinemas in the UK</p>
+                        <p>Leading Frontend direction and technical decision</p>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Umbraco</span>
+                        <span class="tech-tag">Azure</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Mocha/Chai</span>
+                        <span class="tech-tag">scss</span>
+                    </div>
+                    <div class="cta__wrap">
+                        <a href="https://www.curzon.com/" class="cta">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="/img/about/premierinn.webp" alt="Project premierinn" />
+                    <h3 class="project-title">Premierinn.com</h3>
+                    <div>
+                        <p>
+                            Refactored payment microservice from Angular to
+                            React
+                        </p>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Microservices</span>
+                        <span class="tech-tag">Adobe CRM</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">CSS in JS</span>
+                    </div>
+                    <div class="cta__wrap">
+                        <a href="https://www.premierinn.com/" class="cta" >View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="/img/about/arahi.webp" alt="Project 3" />
+                    <h3 class="project-title">Arahi</h3>
+                    <div>
+                        <p>
+                            Laying foundations for business analysis platform.
+                        </p>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Tailwind</span>
+                        <span class="tech-tag">TypeScript</span>
+                    </div>
+                    <div class="cta__wrap">
+                        <a href="https://arahi.com/" class="cta">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="/img/about/gov-design-system.webp" alt="Project gov.uk" />
+                    <h3 class="project-title">Child benefit form</h3>
+                    <div>
+                        <p>Created POC for GOV.UK to test Pega platform capabilities.</p>
+                        <p>
+                            Integrate GOV.UK Design System and Pega platform.
+                        </p>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Pega</span>
+                        <span class="tech-tag">gov-design-system</span>
+                        <span class="tech-tag">css</span>
+                        <span class="tech-tag">TypeScript</span>
+                    </div>
+                    <div class="cta__wrap">
+                        <a href="https://design-system.service.gov.uk/get-started/" class="cta">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="/img/about/sainsbury-archive.webp" alt="Project sainsbury-archive" />
+                    <h3 class="project-title">Sainsbury-archive.co.uk</h3>
+                    <div>
+                        <p>Created POC for GOV.UK to test Pega platform capabilities.</p>
+                        <p>
+                            Integrate GOV.UK Design System and Pega platform.
+                        </p>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Vanilla js</span>
+                        <span class="tech-tag">Vue</span>
+                            <span class="tech-tag">scss</span>
+                        <span class="tech-tag">Apache</span>
+                        <span class="tech-tag">PHP</span>
+                    </div>
+                    <div class="cta__wrap">
+                        <a href="https://Sainsbury-archive.co.uk" class="cta">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="/img/about/pulse-remote.webp" alt="Project 5" />
+                    <h3 class="project-title">PR-web</h3>
+                    <div>
+                        <p>
+                            Audio remote control. Web app.
+                        </p>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">shadCn</span>
+                        <span class="tech-tag">Tailwind</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Web socket's</span>
+                    </div>
+
+                    <div class="cta__wrap">
+                        <a href="https://github.com/undg/pr-web" class="cta">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="/img/about/autorotate.webp" alt="Project 6" />
+                    <h3 class="project-title">Autorotate</h3>
+                    <div>
+                        <p>
+                            Linux utility for 2in1 laptops.
+                        </p>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Go</span>
+                        <span class="tech-tag">Unix</span>
+                        <span class="tech-tag">Makefile</span>
+                        <span class="tech-tag">CI/CD</span>
+                    </div>
+                    <div class="cta__wrap">
+                        <a href="https://github.com/undg/autorotate" class="cta">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
+
+<!--
+Hi, I'm Bartek 👋
+
+I'm a seasoned Frontend developer with over a decade of experience building web applications. My focus is on React/TypeScript ecosystem, but I'm comfortable with various tech stacks and paradigms.
+
+I believe in clean, maintainable code that's pleasant to work with. Large systems are built from small, modular blocks - and that's how I approach development. I enjoy writing tests and creating efficient, practical solutions.
+
+Currently exploring AI/ML space, building tools and applications that combine modern Frontend with various AI capabilities. Check my YouTube channel where I stream some of my development sessions.
+
+I'm passionate about Linux and terminal-based workflows. Good tools and automation are essential for productive development.
+
+Recent tech stack:
+- TypeScript, React, Next.js
+- Node.js, Python, Go
+- Testing (Vitest, Jest)
+- AI/ML models and frameworks
+- Linux/Shell scripting
+
+Check my projects on GitHub, or let's have a chat about your next project!
+
+ -->

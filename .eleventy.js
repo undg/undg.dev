@@ -56,7 +56,7 @@ const localImages = require("./third_party/eleventy-plugin-local-images/.elevent
 const CleanCSS = require("clean-css")
 const GA_ID = require("./_data/metadata.json").googleAnalyticsId
 
-module.exports = function(eleventyConfig) {
+module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(pluginRss)
     eleventyConfig.addPlugin(pluginSyntaxHighlight)
     eleventyConfig.addPlugin(pluginNavigation)
@@ -64,7 +64,8 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPlugin(localImages, {
         distPath: "_site",
         assetPath: "/img/remote",
-        selector: "img,amp-img,amp-video,meta[property='og:image'],meta[name='twitter:image'],amp-story",
+        selector:
+            "img,amp-img,amp-video,meta[property='og:image'],meta[name='twitter:image'],amp-story",
         verbose: false,
     })
 
@@ -74,22 +75,30 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPlugin(require("./_11ty/apply-csp.js"))
     eleventyConfig.setDataDeepMerge(true)
     eleventyConfig.addLayoutAlias("post", "layouts/post.njk")
-    eleventyConfig.addNunjucksAsyncFilter("addHash", function(absolutePath, callback) {
-        readFile(`_site${absolutePath}`, {
-            encoding: "utf-8",
-        })
-            .then((content) => {
-                return hasha.async(content)
+    eleventyConfig.addNunjucksAsyncFilter(
+        "addHash",
+        function (absolutePath, callback) {
+            readFile(`_site${absolutePath}`, {
+                encoding: "utf-8",
             })
-            .then((hash) => {
-                callback(null, `${absolutePath}?hash=${hash.substr(0, 10)}`)
-            })
-            .catch((error) => callback(error))
-    })
+                .then((content) => {
+                    return hasha.async(content)
+                })
+                .then((hash) => {
+                    callback(null, `${absolutePath}?hash=${hash.substr(0, 10)}`)
+                })
+                .catch((error) => callback(error))
+        }
+    )
 
     async function lastModifiedDate(filename) {
         try {
-            const { stdout } = await execFile("git", ["log", "-1", "--format=%cd", filename])
+            const { stdout } = await execFile("git", [
+                "log",
+                "-1",
+                "--format=%cd",
+                filename,
+            ])
             return new Date(stdout)
         } catch (e) {
             console.error(e.message)
@@ -101,35 +110,42 @@ module.exports = function(eleventyConfig) {
     // Cache the lastModifiedDate call because shelling out to git is expensive.
     // This means the lastModifiedDate will never change per single eleventy invocation.
     const lastModifiedDateCache = new Map()
-    eleventyConfig.addNunjucksAsyncFilter("lastModifiedDate", function(filename, callback) {
-        const call = (result) => {
-            result.then((date) => callback(null, date))
-            result.catch((error) => callback(error))
+    eleventyConfig.addNunjucksAsyncFilter(
+        "lastModifiedDate",
+        function (filename, callback) {
+            const call = (result) => {
+                result.then((date) => callback(null, date))
+                result.catch((error) => callback(error))
+            }
+            const cached = lastModifiedDateCache.get(filename)
+            if (cached) {
+                return call(cached)
+            }
+            const promise = lastModifiedDate(filename)
+            lastModifiedDateCache.set(filename, promise)
+            call(promise)
         }
-        const cached = lastModifiedDateCache.get(filename)
-        if (cached) {
-            return call(cached)
-        }
-        const promise = lastModifiedDate(filename)
-        lastModifiedDateCache.set(filename, promise)
-        call(promise)
-    })
+    )
 
-    eleventyConfig.addFilter("encodeURIComponent", function(str) {
+    eleventyConfig.addFilter("encodeURIComponent", function (str) {
         return encodeURIComponent(str)
     })
 
-    eleventyConfig.addFilter("cssmin", function(code) {
+    eleventyConfig.addFilter("cssmin", function (code) {
         return new CleanCSS({}).minify(code).styles
     })
 
     eleventyConfig.addFilter("readableDate", (dateObj) => {
-        return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("dd LLL yyyy")
+        return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(
+            "dd LLL yyyy"
+        )
     })
 
     // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
     eleventyConfig.addFilter("htmlDateString", (dateObj) => {
-        return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("yyyy-LL-dd")
+        return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(
+            "yyyy-LL-dd"
+        )
     })
 
     eleventyConfig.addFilter("sitemapDateTimeString", (dateObj) => {
@@ -180,8 +196,9 @@ module.exports = function(eleventyConfig) {
 
     // Browsersync Overrides
     eleventyConfig.setBrowserSyncConfig({
+        notify: true,
         callbacks: {
-            ready: function(err, browserSync) {
+            ready: function (err, browserSync) {
                 const content_404 = fs.readFileSync("_site/404.html")
 
                 browserSync.addMiddleware("*", (req, res) => {

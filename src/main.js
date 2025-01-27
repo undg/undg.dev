@@ -203,6 +203,7 @@ addEventListener(
 
 if (window.ResizeObserver && document.querySelector("header nav #nav")) {
     var progress = document.getElementById("reading-progress")
+    if(!progress) return
 
     var timeOfLastScroll = 0
     var requestedAniFrame = false
@@ -218,11 +219,14 @@ if (window.ResizeObserver && document.querySelector("header nav #nav")) {
     var winHeight = 1000
     var bottom = 10000
     function updateProgress() {
+        if(!progress) return
         requestedAniFrame = false
         var percent = Math.min(
             (document.scrollingElement.scrollTop / (bottom - winHeight)) * 100,
             100
         )
+
+        if(!progress.style) return
         progress.style.transform = `translate(-${100 - percent}vw, 0)`
         if (Date.now() - timeOfLastScroll < 3000) {
             requestAnimationFrame(updateProgress)
@@ -315,6 +319,9 @@ function animateOnScroll() {
 
 function animateHeader() {
     const header = document.querySelector("header > h1")
+    if(!header) {
+        return
+    }
 
     header.classList.add("fade-in")
     setTimeout(() => {
@@ -471,3 +478,24 @@ function sortRowsAbcAsc(rows, colIndex) {
 }
 
 sortTable()
+
+function lightboxInAboutPage() {
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.project-card img').forEach(img => {
+            console.log(img)
+            img.addEventListener('click', () => {
+                const lightbox = document.createElement('div');
+                lightbox.className = 'lightbox';
+
+                const bigImg = img.cloneNode();
+                lightbox.appendChild(bigImg);
+
+                lightbox.addEventListener('click', () => lightbox.remove());
+                document.body.appendChild(lightbox);
+
+                setTimeout(() => lightbox.style.display = 'flex', 0);
+            });
+        });
+    });
+}
+lightboxInAboutPage()

@@ -1206,7 +1206,7 @@ body {
 section {
     margin-left: auto;
     margin-right: auto;
-    width: 900px;
+    max-width: 1200px;
 }
 
 #menu-toggle {
