@@ -203,7 +203,6 @@ addEventListener(
 
 if (window.ResizeObserver && document.querySelector("header nav #nav")) {
     var progress = document.getElementById("reading-progress")
-    if(!progress) return
 
     var timeOfLastScroll = 0
     var requestedAniFrame = false
@@ -219,14 +218,12 @@ if (window.ResizeObserver && document.querySelector("header nav #nav")) {
     var winHeight = 1000
     var bottom = 10000
     function updateProgress() {
-        if(!progress) return
         requestedAniFrame = false
         var percent = Math.min(
             (document.scrollingElement.scrollTop / (bottom - winHeight)) * 100,
             100
         )
 
-        if(!progress.style) return
         progress.style.transform = `translate(-${100 - percent}vw, 0)`
         if (Date.now() - timeOfLastScroll < 3000) {
             requestAnimationFrame(updateProgress)
