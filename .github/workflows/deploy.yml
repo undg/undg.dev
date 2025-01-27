@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - uses: actions/checkout@v4
-      # - run: yarn
-      # - run: yarn build
+      - uses: actions/checkout@v4
+      - run: yarn
+      - run: yarn build
 
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
