@@ -154,29 +154,34 @@ templateClass: tmpl-post
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 3rem;
+                margin: 20px 0;
+            }
+
+            .hero {
+                height: auto;
+                padding-top: 50px;
             }
         }
 
-        .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+        @media (max-width: 600px) {
+            .hero .me {
+                float: none;
+            }
         }
 
-        .lightbox img {
-            max-height: 90vh;
-            max-width: 90vw;
-            object-fit: contain;
-        }
+        @media (max-width: 410px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
 
+            img {
+                width: 200px;
+            }
 
+            .project-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
 </head>
@@ -213,8 +218,7 @@ templateClass: tmpl-post
         </div>
     </section>
 
-    <section class="social" id="social">
-    </section>
+    <section class="social" id="social"></section>
 
     <section class="projects" id="projects">
         <div class="container">
@@ -248,7 +252,10 @@ templateClass: tmpl-post
                     <h3 class="project-title">Curzon.com</h3>
                     <div>
                         <p>One of the biggest cinemas in the UK</p>
-                        <p>Leading Frontend direction and technical decision</p>
+                        <p>
+                            Leading Frontend direction and technical
+                            decision
+                        </p>
                     </div>
                     <div class="tech-stack">
                         <span class="tech-tag">React</span>
@@ -280,7 +287,7 @@ templateClass: tmpl-post
                         <span class="tech-tag">CSS in JS</span>
                     </div>
                     <div class="cta__wrap">
-                        <a href="https://www.premierinn.com/" class="cta" >View Project</a>
+                        <a href="https://www.premierinn.com/" class="cta">View Project</a>
                     </div>
                 </div>
 
@@ -289,7 +296,8 @@ templateClass: tmpl-post
                     <h3 class="project-title">Arahi</h3>
                     <div>
                         <p>
-                            Laying foundations for business analysis platform.
+                            Laying foundations for business analysis
+                            platform.
                         </p>
                     </div>
                     <div class="tech-stack">
@@ -308,9 +316,13 @@ templateClass: tmpl-post
                     <img src="/img/about/gov-design-system.png" alt="Project gov.uk" />
                     <h3 class="project-title">Child benefit form</h3>
                     <div>
-                        <p>Created POC for GOV.UK to test Pega platform capabilities.</p>
                         <p>
-                            Integrate GOV.UK Design System and Pega platform.
+                            Created POC for GOV.UK to test Pega platform
+                            capabilities.
+                        </p>
+                        <p>
+                            Integrate GOV.UK Design System and Pega
+                            platform.
                         </p>
                     </div>
                     <div class="tech-stack">
@@ -329,16 +341,20 @@ templateClass: tmpl-post
                     <img src="/img/about/sainsbury-archive.png" alt="Project sainsbury-archive" />
                     <h3 class="project-title">Sainsbury-archive.co.uk</h3>
                     <div>
-                        <p>Created POC for GOV.UK to test Pega platform capabilities.</p>
                         <p>
-                            Integrate GOV.UK Design System and Pega platform.
+                            Created POC for GOV.UK to test Pega platform
+                            capabilities.
+                        </p>
+                        <p>
+                            Integrate GOV.UK Design System and Pega
+                            platform.
                         </p>
                     </div>
                     <div class="tech-stack">
                         <span class="tech-tag">JavaScript</span>
                         <span class="tech-tag">Vanilla js</span>
                         <span class="tech-tag">Vue</span>
-                            <span class="tech-tag">scss</span>
+                        <span class="tech-tag">scss</span>
                         <span class="tech-tag">Apache</span>
                         <span class="tech-tag">PHP</span>
                     </div>
@@ -351,9 +367,7 @@ templateClass: tmpl-post
                     <img src="/img/about/pulse-remote.png" alt="Project 5" />
                     <h3 class="project-title">PR-web</h3>
                     <div>
-                        <p>
-                            Audio remote control. Web app.
-                        </p>
+                        <p>Audio remote control. Web app.</p>
                     </div>
                     <div class="tech-stack">
                         <span class="tech-tag">React</span>
@@ -372,9 +386,7 @@ templateClass: tmpl-post
                     <img src="/img/about/autorotate.png" alt="Project 6" />
                     <h3 class="project-title">Autorotate</h3>
                     <div>
-                        <p>
-                            Linux utility for 2in1 laptops.
-                        </p>
+                        <p>Linux utility for 2in1 laptops.</p>
                     </div>
                     <div class="tech-stack">
                         <span class="tech-tag">Go</span>
@@ -389,7 +401,6 @@ templateClass: tmpl-post
             </div>
         </div>
     </section>
-
 </body>
 
 </html>
