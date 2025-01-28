@@ -38,7 +38,7 @@ const CSP = {
         // Script from same-origin and inline-hashes.
         ["script-src", SELF, /* Replaced by csp.js plugin */ "HASHES"],
         // Inline CSS is allowed.
-        ["style-src", quote("unsafe-inline")],
+        ["style-src", SELF, quote("unsafe-inline"), "https://fonts.googleapis.com"],
         // Images may also come from data-URIs.
         ["img-src", SELF, "data:"],
 
