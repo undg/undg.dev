@@ -1,0 +1,12 @@
+--2025-01-28 00:44:51--  https://media.webdesignerdepot.com/spai/q_lossy+w_722+h_469+to_auto+ret_img/webdesignerdepot-wp.s3.us-east-2.amazonaws.com/2023/07/08101929/linkedin-logo-1536x998.png
+Loaded CA certificate '/etc/ssl/certs/ca-certificates.crt'
+Resolving media.webdesignerdepot.com (media.webdesignerdepot.com)... 2400:52e0:1e03::886:1, 143.244.38.136
+Connecting to media.webdesignerdepot.com (media.webdesignerdepot.com)|2400:52e0:1e03::886:1|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1869 (1.8K) [image/png]
+Saving to: ‘linkedin-logo-1536x998.png’
+
+     0K .                                                     100%  190M=0s
+
+2025-01-28 00:44:51 (190 MB/s) - ‘linkedin-logo-1536x998.png’ saved [1869/1869]
+
