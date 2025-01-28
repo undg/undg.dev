@@ -80,6 +80,21 @@ html {
     transition: transform 0.2s ease;
 }
 
+.about__social {
+    /* background-color: black; */
+    display: flex;
+    justify-content: space-evenly;
+    /* grid-template-columns: repeat(auto-fit, 150px); */
+    margin: 3em 0;
+    padding: 3em;
+}
+
+.about__social img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
 
 .about__projects {
     padding: 100px 0;
