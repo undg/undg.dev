@@ -53,6 +53,7 @@ html {
     align-items: center;
     background: linear-gradient(45deg, #1a1a1a 0%, #2a2a2a 100%);
     padding: 3em 0;
+    margin-bottom: 2em;
 }
 
 .about__hero h1 {
