@@ -17,19 +17,17 @@ tags:
 layout: layouts/post.njk
 ---
 
-Testing FE is not easy. You trying to run browser code in node environment. What can go wrong?
-In this use case I'll show you how to test if hook was called inside component.
-
+Testing frontend is not easy. You are trying to run browser code in a Node environment. What can go wrong?
+In this use case, I'll show you how to test if a hook was called inside a component.
 
 ## Component and Hook
 
-Our MVP example has 3 files. `use-store.ts`, `my-component.tsx` and `my-component.test.tsx`.
-I'm using `vitest` with `@testing-library/react` and `@testing-library/user-event`
-
+Our minimal example has 3 files: `use-store.ts`, `my-component.tsx`, and `my-component.test.tsx`.
+I'm using `vitest` with `@testing-library/react` and `@testing-library/user-event`.
 
 ### my-component.tsx
 
-This is our minimal component. All it does is showing a button, that triggers `fullReset` method from `useStore()` hook after it's clicked.
+This is our minimal component. All it does is show a button that triggers the `fullReset` method from the `useStore()` hook after it's clicked.
 
 ```typescript
 export default function MyComponent() {
@@ -43,7 +41,7 @@ export default function MyComponent() {
 
 ### use-store.ts
 
-Implementation of our custom hook is not as important. We are only testing if hook was called.
+The implementation of our custom hook is not as important. We are only testing if the hook was called.
 
 ```typescript
 import { useState } from 'react'
@@ -53,26 +51,26 @@ export default function useStore() {
     const [store, setStore] = useState()
 
     const fullReset = () => {
-        setStore(undefined) // example of implementation, not as important in our example
+        setStore(undefined) // example implementation, not important for our test
     }
 
     return {
-        fullReset, // we testing only this method to be called
+        fullReset, // we are only testing if this method is called
 
-        otherMethods,
+        // otherMethods,
     }
 }
 ```
 
 ## Testing
 
-This is code snippet that will test if hook was called.
-Most important part is to create `fullReset` mock at the top of the file. Otherwise, vitest will lose reference to our mock and reinitialise. We don't want it. Method need to be instantiated only once. I've commented this part with `IMPORTATNT`
-With `vi.mock` we can mock implementation of our hook, and assign to it method `fullReset`. Don't forget to use path to your custom hook that you want to replace with this mock.
-Withing `beforeEach` we are doing cleanup. You don't want to keep your mock forever, you want to restore it to original form.
+This is the code snippet that will test if the hook was called.
+The most important part is to create the `fullReset` mock at the top of the file. Otherwise, Vitest will lose the reference to our mock and reinitialize it. We don't want that. The method needs to be instantiated only once. I've commented this part with `IMPORTANT`.
+With `vi.mock` we can mock the implementation of our hook and assign the `fullReset` method to it. Don't forget to use the path to your custom hook that you want to replace with this mock.
+Within `beforeEach` we are doing cleanup. You don't want to keep your mock forever; you want to restore it to its original form.
 
-Finally you can test it in very straightforward way. Render component, click the button and check if your mock was called.
-You can initialise original hook (first example), because it's mocked anyway, or you can test against mock (second example). I prefer first one, it's bit more explicit and testing if hook was mocked properly.
+Finally, you can test it in a very straightforward way: render the component, click the button, and check if your mock was called.
+You can initialize the original hook (first example), because it's mocked anyway, or you can test against the mock directly (second example). I prefer the first one; it's a bit more explicit and tests if the hook was mocked properly.
 
 ### my-component.test.tsx
 
@@ -113,7 +111,4 @@ describe(`Reset store after clicking button`, () => {
 })
 ```
 
-
-And that's it! This code snippet can be useful in many scenarios. You don't want to test hook implementation this way, but mocking it is perfectly fine and desirable.
-
-
+And that's it! This code snippet can be useful in many scenarios. You don't want to test hook implementation this way, but mocking it is perfectly fine and often desirable.
