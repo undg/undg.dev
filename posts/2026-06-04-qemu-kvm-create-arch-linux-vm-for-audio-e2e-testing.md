@@ -14,6 +14,8 @@ tags:
     - e2e
     - pipewire
     - pulseaudio
+
+layout: layouts/post.njk
 ---
 
 This guide has two parts: first, setting up QEMU with KVM acceleration on your host machine. Second, creating and configuring Arch Linux VM images for testing audio applications against both PipeWire and PulseAudio environments.
