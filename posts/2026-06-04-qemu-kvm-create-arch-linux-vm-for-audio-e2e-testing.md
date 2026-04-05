@@ -20,8 +20,6 @@ This guide has two parts: first, setting up QEMU with KVM acceleration on your h
 
 I use QEMU because it's fast with KVM and trivial to run from the command line — no GUI, no complexity, just scriptable VMs.
 
----
-
 ## Installation and setting up QEMU
 
 Install QEMU:
@@ -64,8 +62,6 @@ sudo usermod -aG kvm $USER
 ls -la /dev/kvm          # Should exist and be owned by kvm group
 qemu-system-x86_64 -accel kvm -hda /dev/null  # Should start without "falling back to tcg" warning
 ```
-
----
 
 ## Quick QEMU Command
 
