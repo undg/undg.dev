@@ -1,5 +1,5 @@
 ---
-title: "QEMU KVM: Create Arch Linux VM for Audio E2E Testing"
+title: "QEMU KVM - Create Arch Linux VM for Audio E2E Testing"
 description: "Set up KVM-accelerated QEMU virtual machines on Arch Linux with both PipeWire and PulseAudio environments for reliable audio end-to-end testing."
 date: 2026-06-04
 tags:
