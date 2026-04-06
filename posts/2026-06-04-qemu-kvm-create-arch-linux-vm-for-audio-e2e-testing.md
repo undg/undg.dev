@@ -172,7 +172,7 @@ systemctl --user enable --now pipewire pipewire-pulse wireplumber
 
 ```bash
 qemu-system-x86_64 -accel kvm -m 2G -hda arch-test-pipewire.qcow2 \
-  -audiodev pa,id=snd0 -device intel-hda -device hda-duplex \
+  -audiodev pa,id=snd0 -device intel-hda -device hda-duplex,audiodev=snd0 \
   -display none -serial stdio
 ```
 
@@ -194,8 +194,8 @@ qemu-system-x86_64 \
   -accel kvm \
   -m 2G \
   -hda arch-vm.img \
-  -device intel-hda -device hda-duplex \  # Audio device
-  -audiodev pa,id=snd0 \                  # PulseAudio backend
+  -audiodev pa,id=snd0 \                   # PulseAudio backend
+  -device intel-hda -device hda-duplex,audiodev=snd0 \  # Audio device
   -display none \
   -serial stdio
 ```
