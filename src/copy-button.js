@@ -31,7 +31,12 @@ export function setupCopyButtons() {
 
 		button.addEventListener("click", async () => {
 			const code = pre.querySelector("code")
-			const text = code ? code.textContent : pre.textContent
+			const getTextWithNewlines = (element) => {
+				const clone = element.cloneNode(true)
+				clone.querySelectorAll("br").forEach((br) => br.replaceWith("\n"))
+				return clone.textContent
+			}
+			const text = code ? getTextWithNewlines(code) : getTextWithNewlines(pre)
 
 			try {
 				await navigator.clipboard.writeText(text)
