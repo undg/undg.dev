@@ -26,12 +26,12 @@ I use QEMU because it's fast with KVM and trivial to run from the command line â
 
 - [Installation and setting up QEMU](#installation-and-setting-up-qemu)
 - [Creating Arch Linux VM for Audio E2E Testing](#creating-arch-linux-vm-for-audio-e2e-testing)
-  - [1. Create Base Disk Image](#1-create-base-disk-image)
-  - [2. Boot the ISO and Install Arch](#2-boot-the-iso-and-install-arch)
-  - [3. Create Test Snapshots](#3-create-test-snapshots)
-  - [4. Configure Each Environment](#4-configure-each-environment)
-  - [5. Launch for Testing](#5-launch-for-testing)
-  - [Resetting Test State](#resetting-test-state)
+    - [1. Create Base Disk Image](#1-create-base-disk-image)
+    - [2. Boot the ISO and Install Arch](#2-boot-the-iso-and-install-arch)
+    - [3. Create Test Snapshots](#3-create-test-snapshots)
+    - [4. Configure Each Environment](#4-configure-each-environment)
+    - [5. Launch for Testing](#5-launch-for-testing)
+    - [Resetting Test State](#resetting-test-state)
 - [Quick QEMU Command Reference](#quick-qemu-command-reference)
 
 ## Installation and setting up QEMU
@@ -125,17 +125,17 @@ qemu-system-x86_64 \
 
 This opens a normal window where you can run through the Arch installer. Follow the [Arch installation guide](https://wiki.archlinux.org/title/Installation_guide) with these choices:
 
-| Setting | Selection | Notes |
-|---------|-----------|-------|
-| **Disk** | 10GB btrfs | zstd compression, flat layout (no subvolumes), skip LVM |
-| **Swap** | Skip | 2GB RAM is sufficient |
-| **Bootloader** | Limine | Modern, handles btrfs natively |
-| **Kernel** | Standard `linux` | Not LTS or Zen |
-| **User** | Create one (e.g., `tester`) | PipeWire/PulseAudio run as user services |
-| **Profile** | Minimal | No desktop environment needed |
-| **Network** | Copy ISO configuration | systemd-networkd with DHCP |
-| **Audio** | PipeWire | Installer handles packages; add PulseAudio manually to base image |
-| **Firewall** | Skip | VM is NAT isolated |
+|  #  | Setting        | Selection                   | Notes                                                             |
+| :-: | :------------- | :-------------------------- | :---------------------------------------------------------------- |
+|  0  | **Disk**       | 10GB btrfs                  | zstd compression, flat layout (no subvolumes), skip LVM           |
+|  1  | **Swap**       | Skip                        | 2GB RAM is sufficient                                             |
+|  2  | **Bootloader** | Limine                      | Modern, handles btrfs natively                                    |
+|  3  | **Kernel**     | Standard `linux`            | Not LTS or Zen                                                    |
+|  4  | **User**       | Create one (e.g., `tester`) | PipeWire/PulseAudio run as user services                          |
+|  5  | **Profile**    | Minimal                     | No desktop environment needed                                     |
+|  6  | **Network**    | Copy ISO configuration      | systemd-networkd with DHCP                                        |
+|  7  | **Audio**      | PipeWire                    | Installer handles packages; add PulseAudio manually to base image |
+|  8  | **Firewall**   | Skip                        | VM is NAT isolated                                                |
 
 **Additional packages to install:**
 
