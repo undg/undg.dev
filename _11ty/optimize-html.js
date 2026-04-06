@@ -40,9 +40,21 @@ const csso = require("csso")
 const purifyCss = async (rawContent, outputPath) => {
     let content = rawContent
     if (outputPath && outputPath.endsWith(".html") && !isAmp(content) && !/data-style-override/.test(content)) {
-        let before = require("fs").readFileSync("css/main.css", {
-            encoding: "utf-8",
-        })
+        // Read and concatenate all CSS files from css/ directory
+        const fs = require("fs")
+        const path = require("path")
+        const cssDir = "css"
+        
+        let before = ""
+        const cssFiles = fs.readdirSync(cssDir)
+            .filter(f => f.endsWith(".css"))
+            .sort() // Ensure consistent order (main.css first if named that way)
+        
+        for (const file of cssFiles) {
+            const filePath = path.join(cssDir, file)
+            const fileContent = fs.readFileSync(filePath, { encoding: "utf-8" })
+            before += `\n/* --- ${file} --- */\n${fileContent}`
+        }
 
         before = before.replace(/@font-face {/g, "@font-face {font-display:optional;")
 
