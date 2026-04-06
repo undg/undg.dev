@@ -135,7 +135,7 @@ This opens a normal window where you can run through the Arch installer. Follow 
 |  5  | **Profile**    | Minimal                | No desktop environment needed                           |
 |  6  | **Network**    | Copy ISO configuration | systemd-networkd with DHCP                              |
 |  7  | **Audio**      | PipeWire               | Enable PipeWire user services after first boot          |
-|  8  | **Firewall**   | Skip                   | VM is NAT isolated                                      |
+|  8  | **Firewall**   | UFW                    | Disable it in post install; VM is NAT isolated          |
 
 **Additional packages to install:**
 
@@ -167,15 +167,10 @@ qemu-system-x86_64 -accel kvm \
 sudo systemctl enable --now sshd
 ```
 
-2. Configure auto-login on serial console for user 'pr'
+2. Disable Firewall
 
 ```bash
-mkdir -p /etc/systemd/system/serial-getty@ttyS0.service.d/
-cat > /etc/systemd/system/serial-getty@ttyS0.service.d/autologin.conf << 'EOF'
-[Service]
-ExecStart=
-ExecStart=-/sbin/agetty --autologin pr --noclear %I $TERM
-EOF
+sudo ufw disable
 ```
 
 ```bash
@@ -201,7 +196,7 @@ pactl info | grep "Server Name"  # Should show "PulseAudio (on PipeWire)"
 Edit the Limine configuration to speed up boot:
 
 ```bash
-sudo sed -i 's/timeout:.*/timeout: 1/' /boot/limine/limine.conf
+sudo sed -i 's/timeout:.*/timeout: 0/' /boot/limine/limine.conf
 ```
 
 6. Power off to freeze the base image
