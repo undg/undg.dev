@@ -8,3 +8,6 @@ js/min.js.map
 export
 .netlify
 yarn-error.log
+
+!.opencode
+!AGENTS.md
