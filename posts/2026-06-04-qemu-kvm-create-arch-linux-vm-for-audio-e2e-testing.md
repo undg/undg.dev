@@ -123,18 +123,29 @@ qemu-system-x86_64 \
   -boot d
 ```
 
-This opens a normal window where you can run through the Arch installer. Follow the [Arch installation guide](https://wiki.archlinux.org/title/Installation_guide). When selecting packages, include:
+This opens a normal window where you can run through the Arch installer. Follow the [Arch installation guide](https://wiki.archlinux.org/title/Installation_guide) with these choices:
+
+| Setting | Selection | Notes |
+|---------|-----------|-------|
+| **Disk** | 10GB btrfs | zstd compression, flat layout (no subvolumes), skip LVM |
+| **Swap** | Skip | 2GB RAM is sufficient |
+| **Bootloader** | Limine | Modern, handles btrfs natively |
+| **Kernel** | Standard `linux` | Not LTS or Zen |
+| **User** | Create one (e.g., `tester`) | PipeWire/PulseAudio run as user services |
+| **Profile** | Minimal | No desktop environment needed |
+| **Network** | Copy ISO configuration | systemd-networkd with DHCP |
+| **Audio** | PipeWire | Installer handles packages; add PulseAudio manually to base image |
+| **Firewall** | Skip | VM is NAT isolated |
+
+**Additional packages to install:**
 
 ```bash
 # Base system
-base base-devel linux linux-firmware vim
+base base-devel linux linux-firmware
 
-# Both audio systems
-pipewire pipewire-pulse pipewire-alsa wireplumber \
-pulseaudio pulseaudio-alsa alsa-utils
+# Testing essentials
+openssh neovim curl git wget btop jq zip unzip
 ```
-
-**Do not enable any audio services yet** — we'll configure per snapshot.
 
 ### 3. Create Test Snapshots
 
