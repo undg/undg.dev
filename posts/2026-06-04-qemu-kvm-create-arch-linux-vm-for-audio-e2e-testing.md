@@ -28,8 +28,9 @@ I use QEMU because it's fast with KVM and trivial to run from the command line �
 - [Creating Arch Linux VM for Audio E2E Testing](#creating-arch-linux-vm-for-audio-e2e-testing)
     - [1. Create Base Disk Image](#1.-create-base-disk-image)
     - [2. Boot the ISO and Install Arch](#2.-boot-the-iso-and-install-arch)
-    - [3. Freeze Base Image and Create Test Snapshot](#3.-freeze-base-image-and-create-test-snapshot)
-    - [4. Launch for Testing](#4.-launch-for-testing)
+    - [3. Post Install Configuration](#3.-post-install-configuration)
+    - [4. Freeze Base Image and Create Test Snapshot](#4.-freeze-base-image-and-create-test-snapshot)
+    - [5. Launch for Testing](#5.-launch-for-testing)
     - [Resetting Test State](#resetting-test-state)
 - [Quick QEMU Command Reference](#quick-qemu-command-reference)
 
@@ -124,17 +125,17 @@ qemu-system-x86_64 \
 
 This opens a normal window where you can run through the Arch installer. Follow the [Arch installation guide](https://wiki.archlinux.org/title/Installation_guide) with these choices:
 
-|  #  | Setting        | Selection                   | Notes                                                   |
-| :-: | :------------- | :-------------------------- | :------------------------------------------------------ |
-|  0  | **Disk**       | 10GB btrfs                  | zstd compression, flat layout (no subvolumes), skip LVM |
-|  1  | **Swap**       | Skip                        | 2GB RAM is sufficient                                   |
-|  2  | **Bootloader** | Limine                      | Modern, handles btrfs natively                          |
-|  3  | **Kernel**     | Standard `linux`            | Not LTS or Zen                                          |
-|  4  | **User**       | Create one (e.g., `tester`) | PipeWire/PulseAudio run as user services                |
-|  5  | **Profile**    | Minimal                     | No desktop environment needed                           |
-|  6  | **Network**    | Copy ISO configuration      | systemd-networkd with DHCP                              |
-|  7  | **Audio**      | PipeWire                    | Enable PipeWire user services after first boot          |
-|  8  | **Firewall**   | Skip                        | VM is NAT isolated                                      |
+|  #  | Setting        | Selection              | Notes                                                   |
+| :-: | :------------- | :--------------------- | :------------------------------------------------------ |
+|  0  | **Disk**       | 10GB btrfs             | zstd compression, flat layout (no subvolumes), skip LVM |
+|  1  | **Swap**       | Skip                   | 2GB RAM is sufficient                                   |
+|  2  | **Bootloader** | Limine                 | Modern, handles btrfs natively                          |
+|  3  | **Kernel**     | Standard `linux`       | Not LTS or Zen                                          |
+|  4  | **User**       | `pr` / `pr`            | Create user `pr` with password `pr`                     |
+|  5  | **Profile**    | Minimal                | No desktop environment needed                           |
+|  6  | **Network**    | Copy ISO configuration | systemd-networkd with DHCP                              |
+|  7  | **Audio**      | PipeWire               | Enable PipeWire user services after first boot          |
+|  8  | **Firewall**   | Skip                   | VM is NAT isolated                                      |
 
 **Additional packages to install:**
 
@@ -143,12 +144,75 @@ This opens a normal window where you can run through the Arch installer. Follow 
 base base-devel linux linux-firmware
 
 # Testing essentials
-openssh neovim curl git wget btop jq zip unzip
+openssh neovim curl git wget btop jq zip unzip alsa-utils libpulse pulsemixer openssh
 ```
 
-### 3. Freeze Base Image and Create Test Snapshot
+### 3. Post Install Configuration
 
-After installation, shut down and protect the base image from accidental writes. QCOW2 snapshots reference specific block offsets in the backing file — modifying the base after creating snapshots corrupts the chain.
+Before freezing the base image, configure the system for automated testing. Boot the newly installed system (not the ISO) and run:
+
+```bash
+qemu-system-x86_64 -accel kvm \
+  -m 2G \
+  -hda arch-audio-base.qcow2 \
+  -audiodev pa,id=snd0 \
+  -device intel-hda \
+  -device hda-duplex,audiodev=snd0 \
+  -nic user,hostfwd=tcp::2222-:22
+```
+
+1. Enable SSH server
+
+```bash
+sudo systemctl enable --now sshd
+```
+
+2. Configure auto-login on serial console for user 'pr'
+
+```bash
+mkdir -p /etc/systemd/system/serial-getty@ttyS0.service.d/
+cat > /etc/systemd/system/serial-getty@ttyS0.service.d/autologin.conf << 'EOF'
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --autologin pr --noclear %I $TERM
+EOF
+```
+
+```bash
+systemctl enable serial-getty@ttyS0.service
+```
+
+3. Optional: passwordless sudo for automated testing
+
+```bash
+echo "pr ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/pr
+```
+
+4. Verify audio is working
+
+```bash
+pactl info | grep "Server Name"  # Should show "PulseAudio (on PipeWire)"
+# Enable PipeWire if it's not working
+# systemctl --user enable --now pipewire pipewire-pulse wireplumber
+```
+
+5. Reduce bootloader timeout (Limine)
+
+Edit the Limine configuration to speed up boot:
+
+```bash
+sudo sed -i 's/timeout:.*/timeout: 1/' /boot/limine/limine.conf
+```
+
+6. Power off to freeze the base image
+
+```bash
+poweroff
+```
+
+### 4. Freeze Base Image and Create Test Snapshot
+
+After configuration, shut down and protect the base image from accidental writes. QCOW2 snapshots reference specific block offsets in the backing file — modifying the base after creating snapshots corrupts the chain.
 
 ```bash
 chmod 444 arch-audio-base.qcow2
@@ -160,20 +224,19 @@ Create a derived snapshot for testing:
 qemu-img create -f qcow2 -F qcow2 -b arch-audio-base.qcow2 arch-test-pipewire.qcow2
 ```
 
-Boot the snapshot once to enable the PipeWire user services:
+### 5. Launch for Testing
+
+The VM will automatically log in as user `pr`. You can immediately run audio tests, or SSH into it:
 
 ```bash
-# Inside VM booted from arch-test-pipewire.qcow2
-systemctl --user enable --now pipewire pipewire-pulse wireplumber
-# Verify: pactl info | grep "Server Name" should show "PulseAudio (on PipeWire)"
-```
-
-### 4. Launch for Testing
-
-```bash
+# Start the VM
 qemu-system-x86_64 -accel kvm -m 2G -hda arch-test-pipewire.qcow2 \
   -audiodev pa,id=snd0 -device intel-hda -device hda-duplex,audiodev=snd0 \
-  -display none -serial stdio
+  -display none -serial stdio \
+  -nic user,hostfwd=tcp::2222-:22
+
+# From another terminal, SSH into the VM
+ssh -p 2222 pr@localhost
 ```
 
 ### Resetting Test State
@@ -187,7 +250,7 @@ qemu-img create -f qcow2 -F qcow2 -b arch-audio-base.qcow2 arch-test-pipewire.qc
 
 ## Quick QEMU Command Reference
 
-Once you have a working VM image, here's a quick template to launch it with audio support:
+Once you have a working VM image, here's a quick template to launch it with audio and SSH support:
 
 ```bash
 qemu-system-x86_64 \
@@ -197,7 +260,10 @@ qemu-system-x86_64 \
   -audiodev pa,id=snd0 \                   # PulseAudio backend
   -device intel-hda -device hda-duplex,audiodev=snd0 \  # Audio device
   -display none \
-  -serial stdio
+  -serial stdio \
+  -nic user,hostfwd=tcp::2222-:22         # SSH on port 2222
 ```
+
+Connect via SSH: `ssh -p 2222 pr@localhost`
 
 The `-accel kvm` flag is what makes it fast. Without it, QEMU silently falls back to TCG.
