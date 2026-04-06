@@ -279,6 +279,7 @@ document.body.addEventListener(
 import { setupFadeInStyles, animateHeader } from "./animation"
 import { sortTable } from "./table"
 import { lightboxInAboutPage } from "./lightbox-in-about-page"
+import { setupCopyButtons } from "./copy-button"
 
 window.addEventListener("load", function () {
 	setupFadeInStyles()
@@ -287,4 +288,5 @@ window.addEventListener("load", function () {
 
 	sortTable()
 	lightboxInAboutPage()
+	setupCopyButtons()
 })

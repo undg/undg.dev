@@ -1,0 +1,62 @@
+/* Copy button for code blocks */
+/* Related files */
+/* ../src/copy-button.js */
+
+
+/*! purgecss start ignore */
+pre.has-copy-button {
+	position: relative;
+}
+
+pre.has-copy-button .copy-button {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	display: grid;
+	place-items: center;
+	background: rgba(0, 0, 0, 0.35);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 6px;
+	color: #e6e6e6;
+	cursor: pointer;
+	opacity: 0;
+	transition: opacity 120ms ease, background-color 120ms ease,
+		border-color 120ms ease;
+	z-index: 2;
+}
+
+pre.has-copy-button:hover .copy-button,
+pre.has-copy-button:focus-within .copy-button {
+	opacity: 1;
+}
+
+pre.has-copy-button .copy-button:hover {
+	background: rgba(0, 0, 0, 0.55);
+	border-color: rgba(255, 255, 255, 0.22);
+}
+
+pre.has-copy-button .copy-button:active {
+	transform: translateY(1px);
+}
+
+pre.has-copy-button .copy-button.copied {
+	opacity: 1;
+	background: rgba(249, 196, 18, 0.95);
+	border-color: rgba(249, 196, 18, 1);
+	color: #181818;
+}
+
+pre.has-copy-button .copy-button.failed {
+	opacity: 1;
+	background: rgba(254, 95, 85, 0.9);
+	border-color: rgba(254, 95, 85, 1);
+	color: #181818;
+}
+
+pre.has-copy-button .copy-button svg {
+	display: block;
+}
+/*! purgecss end ignore */
