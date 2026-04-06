@@ -18,7 +18,7 @@ tags:
 layout: layouts/post.njk
 ---
 
-This guide has two parts: first, setting up QEMU with KVM acceleration on your host machine. Second, creating and configuring Arch Linux VM images for testing audio applications against both PipeWire and PulseAudio environments.
+This guide has two parts: first, setting up QEMU with KVM acceleration on your host machine. Second, creating and configuring Arch Linux VM images for testing audio applications.
 
 I use QEMU because it's fast with KVM and trivial to run from the command line — no GUI, no complexity, just scriptable VMs.
 
@@ -28,9 +28,8 @@ I use QEMU because it's fast with KVM and trivial to run from the command line �
 - [Creating Arch Linux VM for Audio E2E Testing](#creating-arch-linux-vm-for-audio-e2e-testing)
     - [1. Create Base Disk Image](#1-create-base-disk-image)
     - [2. Boot the ISO and Install Arch](#2-boot-the-iso-and-install-arch)
-    - [3. Create Test Snapshots](#3-create-test-snapshots)
-    - [4. Configure Each Environment](#4-configure-each-environment)
-    - [5. Launch for Testing](#5-launch-for-testing)
+    - [3. Freeze Base Image and Create Test Snapshot](#3-freeze-base-image-and-create-test-snapshot)
+    - [4. Launch for Testing](#4-launch-for-testing)
     - [Resetting Test State](#resetting-test-state)
 - [Quick QEMU Command Reference](#quick-qemu-command-reference)
 
@@ -134,7 +133,7 @@ This opens a normal window where you can run through the Arch installer. Follow 
 |  4  | **User**       | Create one (e.g., `tester`) | PipeWire/PulseAudio run as user services                          |
 |  5  | **Profile**    | Minimal                     | No desktop environment needed                                     |
 |  6  | **Network**    | Copy ISO configuration      | systemd-networkd with DHCP                                        |
-|  7  | **Audio**      | PipeWire                    | Installer handles packages; add PulseAudio manually to base image |
+|  7  | **Audio**      | PipeWire                    | Enable PipeWire user services after first boot                    |
 |  8  | **Firewall**   | Skip                        | VM is NAT isolated                                                |
 
 **Additional packages to install:**
@@ -147,21 +146,21 @@ base base-devel linux linux-firmware
 openssh neovim curl git wget btop jq zip unzip
 ```
 
-### 3. Create Test Snapshots
+### 3. Freeze Base Image and Create Test Snapshot
 
-After installation, shut down and create two derived images:
+After installation, shut down and protect the base image from accidental writes. QCOW2 snapshots reference specific block offsets in the backing file — modifying the base after creating snapshots corrupts the chain.
 
 ```bash
-# PipeWire test environment
-qemu-img create -f qcow2 -b arch-audio-base.qcow2 arch-test-pipewire.qcow2
-
-# PulseAudio test environment
-qemu-img create -f qcow2 -b arch-audio-base.qcow2 arch-test-pulse.qcow2
+chmod 444 arch-audio-base.qcow2
 ```
 
-### 4. Configure Each Environment
+Create a derived snapshot for testing:
 
-**PipeWire snapshot:**
+```bash
+qemu-img create -f qcow2 -F qcow2 -b arch-audio-base.qcow2 arch-test-pipewire.qcow2
+```
+
+Boot the snapshot once to enable the PipeWire user services:
 
 ```bash
 # Inside VM booted from arch-test-pipewire.qcow2
@@ -169,24 +168,10 @@ systemctl --user enable --now pipewire pipewire-pulse wireplumber
 # Verify: pactl info | grep "Server Name" should show "PulseAudio (on PipeWire)"
 ```
 
-**PulseAudio snapshot:**
+### 4. Launch for Testing
 
 ```bash
-# Inside VM booted from arch-test-pulse.qcow2
-systemctl --user enable --now pulseaudio.socket pulseaudio.service
-# Verify: pactl info | grep "Server Name" should show "pulseaudio"
-```
-
-### 5. Launch for Testing
-
-```bash
-# PipeWire test
 qemu-system-x86_64 -accel kvm -m 2G -hda arch-test-pipewire.qcow2 \
-  -audiodev pa,id=snd0 -device intel-hda -device hda-duplex \
-  -display none -serial stdio
-
-# PulseAudio test
-qemu-system-x86_64 -accel kvm -m 2G -hda arch-test-pulse.qcow2 \
   -audiodev pa,id=snd0 -device intel-hda -device hda-duplex \
   -display none -serial stdio
 ```
@@ -197,7 +182,7 @@ Snapshots are copy-on-write. To reset to clean state, delete and recreate:
 
 ```bash
 rm arch-test-pipewire.qcow2
-qemu-img create -f qcow2 -b arch-audio-base.qcow2 arch-test-pipewire.qcow2
+qemu-img create -f qcow2 -F qcow2 -b arch-audio-base.qcow2 arch-test-pipewire.qcow2
 ```
 
 ## Quick QEMU Command Reference
