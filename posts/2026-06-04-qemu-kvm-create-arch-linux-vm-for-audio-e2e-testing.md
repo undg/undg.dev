@@ -22,6 +22,18 @@ This guide has two parts: first, setting up QEMU with KVM acceleration on your h
 
 I use QEMU because it's fast with KVM and trivial to run from the command line — no GUI, no complexity, just scriptable VMs.
 
+## Table of Contents
+
+- [Installation and setting up QEMU](#installation-and-setting-up-qemu)
+- [Creating Arch Linux VM for Audio E2E Testing](#creating-arch-linux-vm-for-audio-e2e-testing)
+  - [1. Create Base Disk Image](#1-create-base-disk-image)
+  - [2. Boot the ISO and Install Arch](#2-boot-the-iso-and-install-arch)
+  - [3. Create Test Snapshots](#3-create-test-snapshots)
+  - [4. Configure Each Environment](#4-configure-each-environment)
+  - [5. Launch for Testing](#5-launch-for-testing)
+  - [Resetting Test State](#resetting-test-state)
+- [Quick QEMU Command Reference](#quick-qemu-command-reference)
+
 ## Installation and setting up QEMU
 
 Install QEMU:
@@ -65,21 +77,6 @@ ls -la /dev/kvm          # Should exist and be owned by kvm group
 qemu-system-x86_64 -accel kvm -hda /dev/null  # Should start without "falling back to tcg" warning
 ```
 
-## Quick QEMU Command
-
-```bash
-qemu-system-x86_64 \
-  -accel kvm \
-  -m 2G \
-  -hda arch-vm.img \
-  -device intel-hda -device hda-duplex \  # Audio device
-  -audiodev pa,id=snd0 \                  # PulseAudio backend
-  -display none \
-  -serial stdio
-```
-
-The `-accel kvm` flag is what makes it fast. Without it, QEMU silently falls back to TCG.
-
 ## Creating Arch Linux VM for Audio E2E Testing
 
 ### 1. Create Base Disk Image
@@ -89,9 +86,22 @@ qemu-img create -f qcow2 arch-audio-base.qcow2 10G
 curl -O https://archlinux.org/iso/latest/archlinux-x86_64.iso
 ```
 
-### 2. Install Arch with Audio Stack
+### 2. Boot the ISO and Install Arch
 
-Boot the ISO and install Arch. When selecting packages, include:
+Start the VM with the ISO mounted for installation:
+
+```bash
+qemu-system-x86_64 \
+  -accel kvm \
+  -m 2G \
+  -cdrom archlinux-x86_64.iso \
+  -hda arch-audio-base.qcow2 \
+  -boot d \
+  -display none \
+  -serial stdio
+```
+
+Follow the Arch installation guide. When selecting packages, include:
 
 ```bash
 # Base system
@@ -156,3 +166,20 @@ Snapshots are copy-on-write. To reset to clean state, delete and recreate:
 rm arch-test-pipewire.qcow2
 qemu-img create -f qcow2 -b arch-audio-base.qcow2 arch-test-pipewire.qcow2
 ```
+
+## Quick QEMU Command Reference
+
+Once you have a working VM image, here's a quick template to launch it with audio support:
+
+```bash
+qemu-system-x86_64 \
+  -accel kvm \
+  -m 2G \
+  -hda arch-vm.img \
+  -device intel-hda -device hda-duplex \  # Audio device
+  -audiodev pa,id=snd0 \                  # PulseAudio backend
+  -display none \
+  -serial stdio
+```
+
+The `-accel kvm` flag is what makes it fast. Without it, QEMU silently falls back to TCG.
