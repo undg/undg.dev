@@ -83,7 +83,31 @@ qemu-system-x86_64 -accel kvm -hda /dev/null  # Should start without "falling ba
 
 ```bash
 qemu-img create -f qcow2 arch-audio-base.qcow2 10G
-curl -O https://archlinux.org/iso/latest/archlinux-x86_64.iso
+```
+
+Download the Arch ISO (check archlinux.org/download for current version):
+
+```bash
+# HTTP download from geo mirror
+curl -O https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso
+
+# OR use BitTorrent (recommended by Arch, helps reduce mirror load):
+# curl -O https://archlinux.org/releng/releases/latest/torrent/
+# Then open the .torrent file with your client (transmission, qbittorrent, etc.)
+```
+
+Verify the ISO signature (optional but recommended):
+
+```bash
+# Download signature and checksums
+curl -O https://geo.mirror.pkgbuild.com/iso/latest/sha256sums.txt
+curl -O https://geo.mirror.pkgbuild.com/iso/latest/sha256sums.txt.sig
+
+# Verify checksum matches
+sha256sum -c sha256sums.txt --ignore-missing
+
+# Verify PGP signature (requires archlinux-keyring installed)
+gpg --verify sha256sums.txt.sig sha256sums.txt
 ```
 
 ### 2. Boot the ISO and Install Arch
@@ -97,9 +121,10 @@ qemu-system-x86_64 \
   -cdrom archlinux-x86_64.iso \
   -hda arch-audio-base.qcow2 \
   -boot d \
-  -display none \
-  -serial stdio
+  -nographic
 ```
+
+**To exit:** Press `Ctrl+A` then `X` (Ctrl+A is QEMU's escape key).
 
 Follow the Arch installation guide. When selecting packages, include:
 
