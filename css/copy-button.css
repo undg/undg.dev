@@ -10,8 +10,8 @@ pre.has-copy-button {
 
 pre.has-copy-button .copy-button {
 	position: absolute;
-	top: 0.5rem;
-	right: 0.5rem;
+	top: 1rem;
+	right: 0;
 	width: 28px;
 	height: 28px;
 	padding: 0;
@@ -31,6 +31,7 @@ pre.has-copy-button .copy-button {
 pre.has-copy-button:hover .copy-button,
 pre.has-copy-button:focus-within .copy-button {
 	opacity: 1;
+	color: #e6e6e6;
 }
 
 pre.has-copy-button .copy-button:hover {
