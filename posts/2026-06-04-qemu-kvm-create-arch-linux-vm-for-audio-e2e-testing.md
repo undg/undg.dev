@@ -82,7 +82,7 @@ qemu-system-x86_64 -accel kvm -hda /dev/null  # Should start without "falling ba
 ### 1. Create Base Disk Image
 
 ```bash
-qemu-img create -f qcow2 arch-audio-base.qcow2 10G
+qemu-img create -f qcow2 arch-base.qcow2 10G
 ```
 
 Download the Arch ISO (check archlinux.org/download for current version):
@@ -119,7 +119,7 @@ qemu-system-x86_64 \
   -accel kvm \
   -m 2G \
   -cdrom archlinux-x86_64.iso \
-  -hda arch-audio-base.qcow2 \
+  -hda arch-base.qcow2 \
   -boot d
 ```
 
@@ -154,7 +154,7 @@ Before freezing the base image, configure the system for automated testing. Boot
 ```bash
 qemu-system-x86_64 -accel kvm \
   -m 2G \
-  -hda arch-audio-base.qcow2 \
+  -hda arch-base.qcow2 \
   -audiodev pa,id=snd0 \
   -device intel-hda \
   -device hda-duplex,audiodev=snd0 \
@@ -210,22 +210,22 @@ poweroff
 After configuration, shut down and protect the base image from accidental writes. QCOW2 snapshots reference specific block offsets in the backing file — modifying the base after creating snapshots corrupts the chain.
 
 ```bash
-chmod 444 arch-audio-base.qcow2
+chmod 444 arch-base.qcow2
 ```
 
 Create a derived snapshot for testing:
 
 ```bash
-qemu-img create -f qcow2 -F qcow2 -b arch-audio-base.qcow2 arch-test-pipewire.qcow2
+qemu-img create -f qcow2 -F qcow2 -b arch-base.qcow2 arch-snapshot.qcow2
 ```
 
 ### 5. Launch for Testing
 
-The VM will automatically log in as user `pr`. You can immediately run audio tests, or SSH into it:
+Testing runs headless with SSH access. Start the VM without display and connect via forwarded port:
 
 ```bash
-# Start the VM
-qemu-system-x86_64 -accel kvm -m 2G -hda arch-test-pipewire.qcow2 \
+# Start the VM headless
+qemu-system-x86_64 -accel kvm -m 2G -hda arch-snapshot.qcow2 \
   -audiodev pa,id=snd0 -device intel-hda -device hda-duplex,audiodev=snd0 \
   -display none -serial stdio \
   -nic user,hostfwd=tcp::2222-:22
@@ -234,29 +234,31 @@ qemu-system-x86_64 -accel kvm -m 2G -hda arch-test-pipewire.qcow2 \
 ssh -p 2222 pr@localhost
 ```
 
+The serial console (`-serial stdio`) shows kernel messages and boot progress. Once booted, use SSH for interactive work.
+
 ### Resetting Test State
 
 Snapshots are copy-on-write. To reset to clean state, delete and recreate:
 
 ```bash
-rm arch-test-pipewire.qcow2
-qemu-img create -f qcow2 -F qcow2 -b arch-audio-base.qcow2 arch-test-pipewire.qcow2
+rm arch-snapshot.qcow2
+qemu-img create -f qcow2 -F qcow2 -b arch-base.qcow2 arch-snapshot.qcow2
 ```
 
 ## Quick QEMU Command Reference
 
-Once you have a working VM image, here's a quick template to launch it with audio and SSH support:
+Once you have a working VM image, here's a quick template to launch it headless with audio and SSH support:
 
 ```bash
 qemu-system-x86_64 \
   -accel kvm \
   -m 2G \
-  -hda arch-vm.img \
+  -hda arch-snapshot.qcow2 \
   -audiodev pa,id=snd0 \                   # PulseAudio backend
   -device intel-hda -device hda-duplex,audiodev=snd0 \  # Audio device
-  -display none \
-  -serial stdio \
-  -nic user,hostfwd=tcp::2222-:22         # SSH on port 2222
+  -display none \                           # No GUI
+  -serial stdio \                           # Serial console for boot logs
+  -nic user,hostfwd=tcp::2222-:22           # SSH on port 2222
 ```
 
 Connect via SSH: `ssh -p 2222 pr@localhost`
