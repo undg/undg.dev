@@ -120,13 +120,10 @@ qemu-system-x86_64 \
   -m 2G \
   -cdrom archlinux-x86_64.iso \
   -hda arch-audio-base.qcow2 \
-  -boot d \
-  -nographic
+  -boot d
 ```
 
-**To exit:** Press `Ctrl+A` then `X` (Ctrl+A is QEMU's escape key).
-
-Follow the Arch installation guide. When selecting packages, include:
+This opens a normal window where you can run through the Arch installer. Follow the [Arch installation guide](https://wiki.archlinux.org/title/Installation_guide). When selecting packages, include:
 
 ```bash
 # Base system
