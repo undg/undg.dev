@@ -1,0 +1,8 @@
+# postcss-safe-parser@5.0.2 needs postcss internals that 8.2.4 does not export.
+overrides:
+  postcss-safe-parser>postcss: 8.4.29
+allowBuilds:
+  '@ampproject/toolbox-optimizer': true
+  ejs: true
+  ffmpeg-static: true
+  sharp: true
