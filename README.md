@@ -32,19 +32,19 @@ cd my-blog-name
 ### 4. Install dependencies
 
 ```
-npm install
+pnpm install
 ```
 
 ### 5. Build, serve, watch and test
 
 ```
-npm run watch
+pnpm watch
 ```
 
 ### 6. Build and test
 
 ```
-npm run build
+pnpm build
 ```
 
 ## Customize
